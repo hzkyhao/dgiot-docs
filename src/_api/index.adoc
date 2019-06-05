@@ -8,7 +8,6 @@
 :table-caption!:
 :prewrap!:
 :sectlinks:
-:sectanchors:include::..\..\..\Users\jonhl\Desktop\asciidoc\generated\paths.adoc[]
 :source-highlighter: prettify
 :source-linenums-option!:
 :stylesheet:
