@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Create Slideshow without PPT</title>
+    <link type="text/css" rel="stylesheet" href="include/style.css" media="screen">
+  </head>
+  <body>
+<textarea id="source">
+class: center, middle, inverse
+
+# Create Slideshow .red[without] PPT
+<br>
+### by [chenhm](http://chenhm.com)
+.footnote[Use the space key to next page]
+---
+class: center, middle
+
+# Let's Show some [Slides](http://prezi.com/d3lswto1mebc/free-falling-through-prezi/).
+
+---
+class: middle
+
+# http://prezi.com/
+
+- ###任意缩放、旋转
+- ###无限的画布
+- ###友好的可视化编辑
+- ###内嵌多媒体
+
+.right[
+<img src="//prezi.zendesk.com/attachments/token/svekagppjs5t6vl/?name=monolith.png" height="400px" width="600px"></img>
+]
+---
+class: center, middle
+
+# We Want More 
+---
+class: middle
+
+# impress.js demo
+
+- ## [CSS 3D transforms](http://bartaz.github.io/meetjs/css3d-summit/)
+- ## [HTML5 Future](http://sylvainw.github.io/HTML5-Future/index_en.html)
+- ## [Responsive Web Design](http://joakimkemeny.github.io/presentation.responsive/#/intro-1)
+---
+class: middle
+
+# impress.js code
+
+```html
+<div id="impress">
+  <!-- Hint step ------------------------------------->
+  <div id="hint" class="step hint invisible"
+      data-x="0" data-y="0" data-scale="0.001">
+    <div>
+      <p> This presentation works best in Safari and Chrome,
+          bad in Firefox and worst (if at all) in Opera and
+          Internet Explorer.
+      </p>
+    </div>
+  </div>
+  <!-- Intro steps ----------------------------------->
+  <div id="intro-1" class="step" data-x="0" data-y="0">
+    <h1 class="medium">Responsive Web Design</h1>
+    <h2>An app is not enough</h2>
+    <h3>Joakim Kemeny</h3>
+    <h4>@joakimkemeny</h4>
+    <img src="img/callista.png" class="logotype">
+  </div>
+</div>
+```
+---
+class: middle
+background-image: url(http://www.ipresst.com/materials/727f7d12d9ac3b2b93fae9ef23be1f03)
+
+# Visual Editor
+    
+- ## [strut.io](http://strut.io/dist/index.html)
+- ## [ipresst.com](http://www.ipresst.com/play/5150364e7589b6021d000021)
+
+---
+class: center, middle, inverse
+
+# But I'm a Developer, I like coding.
+---
+class: middle
+
+# Remark
+### 使用`markdown`语法
+### 支持自动代码高亮
+### 支持自定义模版
+<br>
+### 语法简介:[Writing with Markdown](http://chenhm.com/slides/markdown/markdown.html)
+<br>
+.right[
+```
+class: middle
+
+# Remark
+### 使用`markdown`语法
+### 支持自动代码高亮
+### 支持自定义模版
+<br>
+### 语法简介:[Writing with Markdown](/markdown.html)
+
+```
+]
+---
+class: middle
+
+# `\(\LaTeX{}\)` in remark
+
+<br>
+###通过MathJax, 我们还可以使用强大的TeX语法
+```tex
+`\(-b\pm\sqrt{b^2-4ac} \over {2a}\)`
+`\(E = mc^2\)`
+```
+Output:
+## `\(-b\pm\sqrt{b^2-4ac} \over {2a}\)`,    `\(E = mc^2\)`
+---
+class: middle
+
+# Others
+- ### http://talks.golang.org/2012/concurrency.slide#12
+- ### http://io-2012-slides.googlecode.com/git/template.html
+- ### http://lab.hakim.se/reveal-js/
+- ### http://qdemo.sinaapp.com/ppt/udc.htm#cover
+- ### http://markdalgleish.com/projects/bespoke.js/
+---
+name: last-page
+class: center, middle, inverse
+
+## 感谢聆听!
+<br>
+### chenhm@gmail.com
+
+.footnote[Slideshow created using [remark](http://github.com/gnab/remark).]
+
+</textarea>
+<script src="include/remark-0.5.0.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured"></script>
+<script>
+var source = document.getElementById('source');
+source.innerHTML = source.innerHTML.replace(/^\?.+\n/gm, '\n');
+var slideshow = remark.create({
+  ratio: '4:3',
+  highlightStyle: 'monokai',
+  //highlightLanguage: 'javascript'
+}) ;
+
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var alljax = MathJax.Hub.getAllJax();
+  alljax = Array.prototype.slice.call(alljax,0)
+  alljax.each(function(elem){
+    elem.SourceElement().parentElement.className += ' has-jax';
+  })
+});
+MathJax.Hub.Configured();
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-39495276-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>

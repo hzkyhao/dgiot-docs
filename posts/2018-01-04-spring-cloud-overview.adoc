@@ -1,0 +1,292 @@
+# Spring Cloud 概览
+
+:numbered:
+
+http://chenhm.com[Chen Hongming]
+
+## 基础概念
+
+Spring cloud 是目前最热门的 Microservice 框架，其基础是Netfilex OSS里面服务管理相关的项目，由于组件众多，并且很多依赖第三方库，导致初学者容易迷惑。
+这里简单整理了Spring cloud涉及的常见概念，作为入门参考。这篇文章中的一些例子可以在 https://github.com/chenhm/spring-cloud-demo 找到，小图都可以通过右键新开窗口查看大图。
+
+.Spring cloud technology stack
+image::https://www.plantuml.com/plantuml/svg/ZLZhJzj84Fzy_YjMz7JSIJYl0gKHYWe9wUD4oq5QdSgXQcrFx2ssrxUx9eIg__lDFXpMIKhF7u8zyvk7P-TbNab5XQgBF92thAoee0N9Q9ai15CAIg943HxhMq3msYruoUDCy08im10JcDCwLpEuLoSvIyi2IaLY_05X05lvESoLuKOqlaq5hyjap7CkoBEfliu2mvGPJVY2bIcPqrnQUrG8ld3O_SCN-o-d5di9iQ9bciCf5ma8XnYRQmsmOV9WEfZsh9enBofUeeijDSvG6x2kvkpWRDoe-IWXfX9-fAHXFwLYp4ibUDvIqUiTzSU7BVQwYeE3oMHyObNCyUpWHmegbAJfLhRXdwIRKJWwsd_XCTTjJwRJtkGe2Bu7mQvYAWToLGbzVEESrmcPGPoLY4oNv4gXR118P2iWl-fi9DVzm_l-ONV_1jEjPw_1mDreGhy_EFtovNGmw5j2iVpYhcLX4Rrp-tpUYFIAudMlzxeeLWJ_qdx6DenavrYo1nZsZqQ-opk4IY8DmJm7WMYoYEoy1pNFsRt1bFR-4bstMQhZiuA4CHVWuyZrzSrD2_bcAPL0nd6iGpcCyXf6rgN1O7JycwBfw9_I-TWVZPc8QwP8983UWZ2gCwV1gDwYUK9b5d4g4X-z8cw8dTK2Rgbdymh47Ok194p6_0x4qkW10zkGdW9MkYSyWJZ7JgBO7P0tiza5YNE6GADYhh6e8LEgaiDkDsKggwDEp8lkXmfAewfhG6qRbooAk6_ayc9C5YXCSauJx2mvBMCRTc6WsssuC-fQJDl4h1OHAy6FWiAG5yXF1QHKSHjxPN6UWG8ILXV6W3lpK67wHvZzNHVxC6c27phvK1hjuQFsyB3tykY03k2WdypRlbrLEXKHu-S5ptEawlmj06t4qcMmWpuTWHMioSqcMyDmr2HCcovOcYbasYpOa367ja6rWTuWhwpRrcMIejDf6twaEYM6scI-XrxbzP3Wq6AeLST4CbEv6PTgGz0TmP30dGwlFGc3QWxtPzhZl9Pww9csOXgU2woTdWbLDCAcJtPEL4wbTsflox20WeibrXPEHybuINFY0HIIYGJ1GAxKc8EbMjFJXseWtGMxPMlfW-NCFHjdznL7vrpQ4AoMT-T_s-pHo9zaZeQqzNzY3p48cdicPeBEvomcdvYiQSuUi1tmqfYuS-3_MK0DFEJO7qB9Qn53IEEu5pyVzFlFvz1svNDT-swS9IaE9jlDFFBlECbqvUnvPxhdyGL8ffjMlDp3aCGrJgxb7yRx1zJ_T7mqektJYOWpochPAjvopj9QcB2GWfO8BPecIHq--6LL_gmiTVDlQy0tg7ajoGHojchIii5wNYuMYywAtc6ys_XdKafNH1DbGpRl65vdB4cWlC5oVNJ8veVFM-d5KdZiFLgdqRv6C_9DoUnCc2wng5QGu999Opo5dM-joE7YakafWanR1Pd6WO_HSsDcXSd9nTjcgWf8_A6Q0Ux08wD29vAp5gnLwvXAYPkne0Q8QvjS0vpXAoci6T0XiKFHKjguywNyDxVA7vS8-sQUvnyZFALt558trR-QstNKRA7NT44-imftT9k4vjO0lrihtZkPE7kgrbcUi4KPgdxN8NP2N5xMMUuDVQxLiLNGOpqjQ6BKyF0rtEjYNijM2M_VHM83ixj8KoKvr2hp5v4jwMLAn019IzWMv7RXBbhLZHgInZH2MzAdhUAk1AyeZdJiuqh_Ol6KAVW86WikiT2REMBqHhLiAJtM3jp2Q6mnnrttR9smn7O0NAVo37qumJSTx96hgm-klrj8Isw2QKkcELyOY4xYEJwqLPiHwIa-1woK5C94OEknMMd7Q4lia_uQzALqezE9YAuAK7PZkTCWrwsmMPdUqB6BkEvLzYuqvD1WTVjoBUHvLVaDupLJtjEVTEuM5VjyIQE8gVE_TBO5BWaw-kjKJtlJLuQuGfjUuwfDVqY2xgqxA_nZ1GNUnm89wmgReStAxGpCcIsC9jfRM6ujQJ6GR4BGfZQhcHkUspp3vDhGr2mnw_GcIGATaIlbpft0fN-dhZ0KEk3kt2t1nhn5MeMzPKV7NMirOKMFcyJK3kW1P0pf4Z_kN3_35HcdJQTPFeVOLQjSpm7y-ConKPM9_I_3xaRpnu-yflbZ0I45_nZCY0p9nUGZmS7q_kejgVM-k9BtFicC0lr9jYa-nb71y00XsBKUQ4VGfLVufoxo_m00[]
+
+上图是我列出的仅仅一些基础组件依赖关系，是不是显得有点眼花缭乱，但如果我们思考 Microservice 所面临的问题，服务框架应该如何解决这些问题，那么 Spring cloud 的组件关系将会变得清晰自然。
+
+在 https://martinfowler.com/articles/microservices.html[Martin Fowler] 的网站我们可以看到其对 Microservice 有这样一段描述：
+
+> a single application as a suite of small services, each running in its own process and *communicating with* lightweight mechanisms, often an *HTTP resource API*
+> -- James Lewis and Martin Fowler, ThoughtWorks
+
+当服务粒度变细之后，必然存在大量的服务间通信，但服务A如何知道服务B的endpoint呢？这时我们需要引入服务发现机制。
+
+### 服务发现 Service Discovry
+
+服务发现实际上就是根据服务名找到提供对应服务的主机名或IP地址、端口、context path等信息，由于端口和context path往往有默认值，所以重点关注的是 name -> IP 的过程。这似乎跟 DNS 一样？是的，非常流行的服务发现产品 https://www.consul.io/docs/internals/architecture.html[Consul] 就可以提供基于 DNS 协议的查找，并通过设置TTL为0避免缓存。
+
+Spring cloud 默认使用 Netfilx 的 Eureka 作为服务注册中心，但也支持多种主流注册中心。注册中心需要记录整个集群的状态，并能随时响应客户端的查询。符合 AP 要求的 Consul 和 Eureka 是相对较好的选择。
+
+[format=csv,separator="	",cols=">h,4*^"]
+|===
+Features	Consul	Eureka	Zookeeper	Etcd
+
+CAP	CP/AP	AP	CP	CP
+Language	Go	Java	Java	Go
+Consensus protocol	Raft, stale mode	No, broadcast async replication	ZAB	Raft
+KV	Yes	-	Yes	Yes
+Security	acl/https	-	acl	https
+Interface	REST/DNS	REST	Client	REST/grpc
+Service health check	tcp/http/script	client heartbeats	keepalive	heartbeats
+Self check	metrics	metrics	-	metrics
+Multi-data center	Gossip	-	-	-
+|===
+
+Consul 因为有两级结构，CAP模式较为特别，Consul server 通过 http://thesecretlivesofdata.com/raft[Raft] 协议组成一个CP集群，数据写操作都由 leader 处理，保证强一致性。而由Consul agent 和 server 组成的完整集群则是一个 AP 系统，通过 Gossip 协议向 agent 广播 leader 状态，agent 进行查询操作的时候甚至可以使用 stale mode 完全不考虑一致性。
+
+image::images/consul.png[]
+
+### 负载均衡 Load Balancer & Failover
+
+不管是 SD 为了提高可用性牺牲了一致性，还是因为 health check 不够及时，我们从 SD 拿到的 service 列表总有一些是过期的，对应的需要有 Failover 机制在一个服务实例失效的时候连接其他实例。这时有两个选择：
+
+* Client-side load balance: 客户端 LB 实现较为简单，直接在客户端完成服务查找和调用，Spring cloud 的实现是基于 https://github.com/Netflix/ribbon[Netflix/ribbon] 的，体现在代码上就是 `@LoadBalanced` 注解。
++
+```java
+@EnableEurekaClient
+@SpringBootApplication
+public class ClientApplication {
+
+    @LoadBalanced
+    @Bean
+    RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+	
+	@RequestMapping(path = "/names", method = RequestMethod.GET)
+    public Collection<String> getUsers() {
+        return this.restTemplate.exchange(
+                "http://service-name/users", GET, null, null)
+                .getBody()
+                .getContent()
+                .stream()
+                .collect(toList());
+    }
+}
+```
++
+image::images/part7-clientsidelb.png[]
+
+* Server-side load balance: 服务端 LB 需要新增一个反向代理模块，实现相对复杂，现在多体现为 http://microservices.io/patterns/apigateway[API Gateway] 模式，后面我们会单独介绍。
++
+image::images/part7-serversidelb.png[]
+
+### 声明式REST客户端 Declarative REST Client
+
+基于 RestTemplate 编程并不方便，Spring cloud 使用 https://github.com/OpenFeign/feign[Feign] 实现声明式客户端，其效果跟 CXF 基于 https://github.com/jax-rs/spec/raw/master/spec.pdf[JAX-RS] 的 `http://cxf.apache.org/docs/jax-rs-client-api.html[JAXRSClientFactory.create()]` 差不多。
+```java
+@FeignClient(
+        name = "reservation-service"
+)
+public interface NamesFeignClient {
+    @RequestMapping(value = "/reservations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    Resources<Reservation> reservations();
+}
+```
+Feign 会根据上面的 interface 自动生成实现，调用非常简单
+
+```java
+@Autowired
+NamesFeignClient client;
+
+public Resources<Reservation> getReservations(){
+	return client.reservations();
+}
+```
+
+### 断路器 Circuit Breaker
+
+即使有 LB，仍然可能会因为负载过高、网络抖动等原因无法正常调用，我们可以利用断路器进行服务降级，提升用户体验。
+
+#### Hystrix
+Spring cloud 使用的 https://github.com/Netflix/Hystrix[Hystrix] 可以和 Feign 结合在一起简化编程：
+
+```java
+@FeignClient(
+	name = "reservation-service",
+	fallback = NamesFeignClient.NamesFeignClientFallback.class <1>
+)
+public interface NamesFeignClient {
+    @RequestMapping(value = "/reservations", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+    Resources<Reservation> reservations();
+
+    @Component
+    class NamesFeignClientFallback implements NamesFeignClient { <2>
+
+        @Override
+        public Resources<Reservation> reservations() {
+            return new Resources(Arrays.asList(new Reservation(1L, "Frank")));
+        }
+    }
+}
+```
+<1> 声明 fallback 的实现类
+<2> Fallback 必须实现原接口，当方法调用失败的时候，会调用 Fallback 类上的对应方法
+
+#### Hystrix Dashboard
+一旦达到熔断条件，service 会直接调用 fallback 上的 mock 方法，不经过 SD、LB 等模块，所以 API 调用统计只能在断路器这个层面上实现。Hystrix 提供了子项目 https://github.com/Netflix/Hystrix/wiki/Dashboard[Hystrix Dashboard] 用于呈现 API 调用监控。
+
+image::https://raw.githubusercontent.com/wiki/Netflix/Hystrix/images/dashboard-example-1280.png[hystrix-dashboard-netflix-api-example]
+
+启用 Hystrix Dashboard 也再次体现了 Spring cloud 基于注解的极简接口。
+
+```java
+@EnableHystrixDashboard
+@SpringBootApplication
+public class HystrixDashboardApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(HystrixDashboardApplication.class, args);
+	}
+}
+```
+
+#### Turbine
+Hystrix Dashboard 只能订阅单台 Hystrix 的访问统计信息，对于 Hystrix 集群我们需要利用 https://github.com/Netflix/Turbine/wiki[Turbine] 进行数据汇总，然后供  Dashboard 呈现。
+
+### 分布式追踪 Tracing
+为了追踪业务异常，必须知道一个请求从开始到结束经历了哪些节点。以前我们需要分析大量的日志才能得到这样的信息，一些 https://en.wikipedia.org/wiki/Application_performance_management[APM] 工具例如 https://www.appdynamics.com[AppDynamics]、 http://www.oneapm.com/[OneAPM] 虽然也可以协助追踪，但这些商业产品需要联网将业务数据上传给供应商，适用场景有限。于是受 https://research.google.com/pubs/pub36356.html[Google Dapper] 启发的 http://opentracing.io/[OpenTracing] 现在变得炙手可热。
+
+OpenTracing 仅仅定义了一套规范和API用于在应用开发中设置埋点，实际的抓取存储日志、分析统计展现都由兼容 OpenTracing 的监控产品完成。
+
+OpenTracing 核心只有两个概念
+
+* Trace: 一条完整的调用链，通过传递一个全局唯一的TraceID追踪整个调用过程。
+* Span: 记录调用链上某个具体服务或方法的执行情况，通常包含调用开始时间、持续时间、调用方、被调用方、关键日志（例如http调用的应答码、url）、异常。Span是可以有父子关系的，例如一个服务调用内部包含多个执行方法。另外有一种`FollowsFrom`关系表明父子span之间不存在依赖，未来会进一步细分这种类型。
+
+.单个Trace中，span间的因果关系
+----
+        [Span A]  ←←←(the root span)
+            |
+     +------+------+
+     |             |
+ [Span B]      [Span C] ←←←(Span C is a `ChildOf` Span A)
+     |             |
+ [Span D]      +---+-------+
+               |           |
+           [Span E]    [Span F] >>> [Span G] >>> [Span H]
+                                       ↑
+                                       ↑
+                                       ↑
+                         (Span G `FollowsFrom` Span F)
+----
+
+.单个Trace中，span间的时间关系
+----
+––|–––––––|–––––––|–––––––|–––––––|–––––––|–––––––|–––––––|–> time
+
+ [Span A···················································]
+   [Span B··············································]
+      [Span D··········································]
+    [Span C········································]
+         [Span E·······]        [Span F··] [Span G··] [Span H··]
+----
+
+有规范就有实现，如今最流行的实现是 twitter 开源的 https://zipkin.io/[Zipkin]，但 Uber 开源的 https://github.com/jaegertracing/jaeger[Jaeger] 功能更强，并兼容 zipkin 协议，已成为 https://www.cncf.io/projects/[CNCF] 项目，有后来居上的趋势。另外国人开发的 http://skywalking.io/[SkyWalking APM] 目前是 Apache 孵化项目，weibo已在使用，值得关注。
+
+https://cloud.spring.io/spring-cloud-sleuth/[Spring Cloud Sleuth] 是一套类似 OpenTracing 的API，并且会对 Spring 各个组件做 instrument（详细请参考`spring-cloud-sleuth-core`包里的`org.springframework.cloud.sleuth.instrument`相关类），这样Spring cloud的项目只需要引入 Sleuth 库，不需要改任何代码，即可输出 tracing 信息到 Zipkin。
+
+### 配置中心 Config
+
+分布式集群的配置管理也是一个常见问题，一种方案是使用 https://www.ansible.com/[Ansible] 之类的维护工具或者 Kubernetes ConfigMap 之类的管理工具管理配置文件，一种是 Spring cloud 使用的配置中心，所有应用启动的时候从配置中心拉取配置信息。
+
+Spring cloud config 利用 git 完成配置版本管理。config client 则新增了`bootstrap.properties`用于获取config server的信息，原来在Spring boot应用中`application.properties`的配置就统一交给了config server管理。
+
+.bootstrap.properties
+```properties
+spring.application.name=demo
+spring.cloud.config.uri=http://user:password@localhost:8888
+```
+
+当然 Spring cloud 也是可以和 ConfigMap 集成的，具体参考 https://github.com/spring-cloud-incubator/spring-cloud-kubernetes/tree/master/spring-cloud-kubernetes-config[spring-cloud-kubernetes]。
+
+### 消息服务 Stream & Bus
+
+Spring Cloud Stream 提供了消息服务的抽象层，底层的消息队列可以是 https://github.com/spring-cloud/spring-cloud-stream-binder-kafka[Kafka] 或 https://github.com/spring-cloud/spring-cloud-stream-binder-rabbit[RabbitMQ], Spring Cloud Bus 则在 Stream 基础上提供了总线服务。
+
+Bus 的一个典型应用场景是配合 Config 使用，上面提到的 Config 拉取机制只能解决应用初始化阶段配置信息的加载，如果在运行过程中想更新一些配置项该如何做呢？Spring cloud 的解决方法是利用 Bus 进行配置项的广播，配合`@RefreshScope`即可刷新属性。
+
+### API Gateway
+
+上面我们提到了 Server-side LB，既然有了这个负载均衡网关，在这里再做些权限控制、安全策略、流量监控、灰度发布，甚至协议转换、API拆分合并，似乎也很方便，于是 http://microservices.io/patterns/apigateway[API Gateway] 应运而生。API Gateway 极大的增强了 Service 的灵活性，Service 更多的专注于自身功能的实现而不用过多考虑调用方如何使用。
+
+Sping cloud 继续使用 Netflix 的 https://github.com/Netflix/zuul[Zuul] 作为底层实现，应用代码只需要在Configuration类加上 `@EnableZuulProxy` 注解，Spring cloud 将自动从Service discovery获取服务信息，生成代理实现。
+
+对于第三方API Gateway，基于 https://openresty.org/en/about.html[OpenResty] 的 https://getkong.org/[Kong] 是个热门选项。Nginx 虽然自身也一直在API Gateway领域发力，但打包了 Nginx + Lua 的 OpenResty 真正开创了服务器编程领域，在此基础上建立API Gateway自然事半功倍。
+
+## 其他
+
+### Service Mesh
+
+Service Mesh，服务网格，号称下一代微服务技术， http://bit.ly/8stepsawesome[8 Steps to Becoming Awesome with Kubernetes] 中认为其在明年会取代 Netflix OSS 中服务管理相关的组件。 
+
+image::images/microservices-2018.jpg[]
+
+Service Mesh是什么呢？我们回顾上面的内容，可以看到微服务中很多问题都是跟网络通讯相关：
+
+* 服务注册与发现
+* 负载均衡，进程间通讯，跨语言跨协议通讯
+* 链路跟踪，日志与监控
+* 限流，降级，熔断
+* 路由策略，灰度发布
+* 访问控制 (Spring Cloud Security)
+
+如果我们将网络层抽取出来，进行统一管理，服务提供方将只需要关注业务功能，并且获得更新灵活的网络能力。Service Mesh 便是在这样的背景下诞生的。
+
+https://buoyant.io[Buoyant] 发布的 https://linkerd.io/[Linkerd] 是Service Mesh第一个商业实现，而Google、IBM 和 Lyft 发布的 https://istio.io/[Istio] 引入了控制平面的概念，将服务管理从数据平面抽象出来，有点像 SDN 的架构。这样明显领先的设计让 Linkerd 面临巨大压力，于是 Buoyant 在2017年底发布了 https://buoyant.io/2017/12/05/introducing-conduit/[Conduit] 以便和 Istio 竞争。
+
+image::https://istio.io/docs/concepts/what-is-istio/arch.svg[]
+
+### Cloud Native
+
+2013年，Spring 的 Matt Stine 提出了云原生(Cloud Native)的概念，描绘了面向云的架构需要关注的方向和需要达成的目标。今天我们可以看到，相对传统应用，云原生在架构的各个层面都发生了变革。而且互相依赖，自成一体，例如Service Mesh会重度依赖服务编排。在架构设计上，我们的关注点更多，但解决方案也越发的趋同。
+
+.cloud native abstractions
+
+	       Virtual machines -> Containers
+	           Data centers -> Orchestrated envs
+	    Hardware redundancy -> Design for failure
+	                Servers -> Services
+	      IP addresses, DNS -> Services discovery
+	      Server monitoring -> Services monitoring
+	Monolithic applications -> Microservices
+	                 TCP/IP -> gRPC, REST
+
+	
+### Dubbo vs Spring Cloud
+
+在 Spring cloud 出现之前，Dubbo 是国内互联网界非常流行的 RPC 框架。虽然被ali荒废了几年，但其基本功能并没有落后太多，现在被ali重新启动，并作为aliyun的微服务解决框架使用，还是可以保持下关注。
+
+[format=csv,separator="	",cols=">s,2*^"]
+|===
+Microservice features	Dubbo	Spring Cloud
+
+Service discovery	Zookeeper	Eureka
+Invoke mode	RPC	RESTful API
+Circuit breaker	Yes	Hystrix
+Load balance	Yes	Ribbon
+Service route	Yes	Zuul
+Distributed configuration	No	Config
+Distributed message	No	Bus
+|===
+
+[bibliography]
+## 参考
+- http://cloud.spring.io/spring-cloud-static/spring-cloud.html
+- http://cloud.spring.io/spring-cloud-netflix/single/spring-cloud-netflix.html
+- http://callistaenterprise.se/blogg/teknik/2017/02/17/go-blog-series-part1/[Go Microservices blog series]
+- https://mp.weixin.qq.com/s/hHzDa1T_UKPB97ttFRaDCQ[Service Mesh 时代的选边与站队]
+- https://www.kubernetes.org.cn/2737.html[Kubernetes，微服务以及 Service Mesh]
+- http://bit.ly/8stepsawesome[8 Steps to Becoming Awesome with Kubernetes]
+- https://medium.com/@DockerTurtle/service-mesh-the-nervous-system-of-microservices-9393ed1ffa5c["Service mesh" -- the Nervous system of Microservices]
+- https://content.pivotal.io/ebooks/migrating-to-cloud-native-application-architectures[Migrating to Cloud Native Application Architectures] by Matt Stine (https://github.com/rootsongjc/migrating-to-cloud-native-application-architectures[中文版])

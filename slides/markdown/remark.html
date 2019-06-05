@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>remark</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="default.css" />
+	<style type="text/css" media="screen">
+      body,h1 { font-family: 'Microsoft YaHei','Droid Serif'; }
+	</style>
+  </head>
+  <body>
+    <div data-tab="">
+      <h1>试一下吧:</h1>
+      <div id="wrapper">
+        <div id="editor">
+# title 1
+##title 2
+something
+	
+	def add(a, b)
+	  a + b
+	end
+
+</div>
+        <div id="slideshow"></div>
+      </div>
+      <p>左边输入，右边显示</p>
+    </div>
+    
+    <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="sammy-0.7.4.min.js"></script>
+    <script type="text/javascript" src="knockout-2.2.1.min.js"></script>
+    <script type="text/javascript" src="https://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="remark-embeddable.js">
+	 remark.config.set({ "highlightStyle": "monokai" });
+	 </script>
+	
+    <script type="text/javascript" src="app.js"></script>
+
+  </body>
+</html>

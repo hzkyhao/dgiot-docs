@@ -1,0 +1,27 @@
+branches:
+  only:
+  - master
+
+language: minimal
+
+sudo: false
+
+before_script:
+  - git config --global user.name "lsxredrain"
+  - git config --global user.email "lsxredrain@163.com"
+  - git clone --branch list https://github.com/${GH_REF}.git dist
+
+script:
+  - curl -vL "https://api.github.com/repos/${GH_REF}/contents/posts?ref=master&client_id=${client_id}&client_secret=${client_secret}'" -o dist/list.json
+
+after_success:
+  - cd dist
+  - git add --all .
+  - git commit --message "Automatically update list.json from travis-ci"
+  - git push --quiet "https://${GH_TOKEN}@github.com/${GH_REF}.git" list:list
+
+# Note: you should set Environment Variables here or 'Settings' on travis-ci.org
+env:
+   global:
+       - GH_REF: dgiot/dgiot-docs
+     # - GH_TOKEN: 'Your GitHub Personal access tokens, via https://github.com/settings/tokens'

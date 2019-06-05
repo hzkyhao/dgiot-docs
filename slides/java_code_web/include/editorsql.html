@@ -1,0 +1,81 @@
+﻿<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Editor</title>
+  <link type="text/css" rel="stylesheet" href="editor.css">
+</head>
+<body>
+
+<pre id="editor">
+public class JDBC {
+	private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
+
+	public void insert(){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			Context ctx = new InitialContext();
+			DataSource ds = (DataSource)ctx.lookup("java/TestDB");
+			conn = ds.getConnection();
+			ps = conn.prepareStatement("INSERT INTO EMPLOYEE VALUES(?)");
+			ps.setString(1, "Jeff");
+			ps.addBatch();
+			ps.setString(1, "John");
+			ps.addBatch();
+			//当插入或更新大批量数据时，我们必须使用batch insert/update方式
+			//减少后台数据库的访问和操作，以提高系统的性能
+			ps.executeBatch();
+		} catch (NamingException | SQLException ex) {
+			logger.info("Exception: {}", ex.getMessage());
+			//使用日志框架千万不要忘记记录堆栈
+			logger.info("StackTrace:", ex);
+		} finally{
+			//DB、MQ、FILE、SOCKET都是重要资源，一定要关闭
+			JdbcUtils.closeStatement(ps);
+			JdbcUtils.closeConnection(conn);
+		}
+	}
+
+	public void query(){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			Context ctx = new InitialContext();
+			DataSource ds = (DataSource)ctx.lookup("java/TestDB");
+			conn = ds.getConnection();
+			//必须使用prepare，SQL拼装在项目里是绝对禁止的
+			ps = conn.prepareStatement(
+				//建立正确的数据库表空间和表索引
+				"SELECT id,name from EMPLOYEE where id = ?"
+				//指定游标类型为只读(CONCUR_READ_ONLY)
+				//和前向读取(TYPE_FORWARD_ONLY),
+				//否则大结果集可能造成内存溢出
+				,ResultSet.TYPE_FORWARD_ONLY
+				,ResultSet.CONCUR_READ_ONLY);
+			rs = ps.executeQuery();
+			for(;rs.next();){
+				//do something
+			}
+		} catch (NamingException | SQLException ex) {
+			logger.info("Exception: {}", ex.getMessage());
+			logger.info("StackTrace:", ex);
+		} finally{
+			JdbcUtils.closeResultSet(rs);
+			JdbcUtils.closeStatement(ps);
+			JdbcUtils.closeConnection(conn);
+		}
+	}
+}
+</pre>
+<script src="ace-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/vibrant_ink");
+    editor.setFontSize(26);
+	editor.getSession().setMode("ace/mode/java");
+</script>
+
+</body>
+</html>

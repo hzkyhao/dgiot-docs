@@ -1,0 +1,342 @@
+<html lang="en" style="height: 100%; "><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>JAVA编码规范</title>
+	
+    <!-- style.css is needed for the presentation to look ok, the rest is up to you -->
+    <link href="style.css" rel="stylesheet">
+	<!--
+    <link href="css/builder.css" rel="stylesheet">
+    -->
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+	<style type="text/css"></style>
+	<link type="text/css" rel="stylesheet" href="include/style.css">
+</head>
+
+
+<body class="impress-not-supported" quick-markup_injected="true">
+
+<!--
+    For example this fallback message is only visible when there is `impress-not-supported` class on body.
+-->
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+
+<div id="impress">
+
+
+
+<div>
+    <div id="firststep" class="step slide past bgimg" 
+		data-x="0" data-y="0" data-scale="1" data-rotate="90" style="background-image:url(img/drew-15.jpg)">
+		<div class="title" style="background:rgba(255,255,255,.55)">
+		JAVA编码规范	
+<span style="font-family:Simsun;display:block;margin-left: 800px;margin-top:270px;font-size:15px;color:#FFF;text-shadow:0px 0px 0px;">使用PgDn翻页</span>		
+		</div>
+		
+    </div>
+
+    <div class="step slide  past" style="text-align:center;"
+		data-x="0" data-y="1500" data-z="0" data-scale="1" data-rotate="0">
+		<h1>为什么使用JAVA？</h1>
+		<br><br>
+		<img src="img/java2.png" height="505px" width="280px">
+	</div>
+	
+	<div class="step slide  past" style="text-align:center;"
+		data-x="0" data-y="2500" data-z="0" data-scale="1" data-rotate="0">
+		<h1>广泛使用在各种业务场景和学术研究上</h1>
+		<br><br>
+		<img src="img/tpci_trends.png" height="480px" width="640px">
+	</div>
+	
+	<div class="step slide past bgimg" 
+		data-x="0" data-y="3500" data-scale="1" data-rotate="0" style="background-image:url(img/2.png)">
+		<div class="title" style="margin-top:30px;">
+		跨平台<br>
+		<span style="font-size:30px">——虽然有时候不尽人意</span>
+		</div>
+    </div>
+	
+	<div class="step slide past bgimg-top" 
+		data-x="0" data-y="4400" data-scale="1" data-rotate="0" style="background-image:url(img/1.png)">
+		<div class="title-right">高性能</div>
+    </div>
+	
+	<div class="step slide past bgimg-top" style="text-align:center;font-size:60px;padding:20px"
+		data-x="-400" data-y="6000" data-z="0" data-scale="3" data-rotate="0">
+		Just In Time Compiler (JIT)
+	</div>
+	
+	<div class="step past" style="text-align:center;"
+		data-x="150" data-y="5400" data-z="0" data-scale="1" data-rotate="0">
+			<span class="red big">Lock</span> <span class="green">eliding</span>
+			<br>锁消除
+	</div>
+	
+	<div class="step past" style="text-align:center;"
+		data-x="-1000" data-y="5700" data-z="0" data-scale="1" data-rotate="0">
+			<span class="brown">Method</span> <span class="yellow big">inline</span>
+			<br>内联
+	</div>
+	
+	<div class="step past" style="text-align:center;"
+		data-x="200" data-y="5800" data-z="0" data-scale="1" data-rotate="0">
+			<span class="brown small">Dead code</span> <span class="sky-blue small">elimination</span>
+			<br>死代码消除
+	</div>
+	
+	<div class="step past" style="text-align:center;"
+		data-x="-500" data-y="6100" data-z="0" data-scale="1" data-rotate="0">
+			<span class="black small">Loop </span> <span class="blue">unrolling</span>
+			<br>循环展开
+	</div>
+	
+	<div class="step past" style="text-align:center;"
+		data-x="-1100" data-y="6400" data-z="0" data-scale="1" data-rotate="0">
+			<span class="red small">Lock </span> <span class="green small">coarsening</span>
+			<br>锁粗化
+	</div>
+	
+	<div class="step past" style="text-align:center;"
+		data-x="300" data-y="6500" data-z="0" data-scale="1" data-rotate="0">
+			<span class="black small">Escape analysis </span>
+			<br>逃逸分析
+	</div>
+	
+	<div class="step past" style="text-align:center;"
+		data-x="-500" data-y="6700" data-z="0" data-scale="1" data-rotate="0">
+			<span class="brown small">Duplicate code</span> <span class="sky-blue small">elimination</span>
+			<br>重复代码消除
+		<!--
+		Consider the following code snippet for calculating the average of an array of integers
+		extern int array1[];
+		extern int array2[];
+		 
+		int sum1 = 0;
+		int sum2 = 0;
+		int average1 = 0;
+		int average2 = 0;
+		 
+		for (int i = 0; i < 4; i++)
+		{
+		   sum1 += array1[i];
+		}
+		average1 = sum1/4;
+		 
+		for (int i = 0; i < 4; i++)
+		{
+		   sum2 += array2[i];
+		}
+		average2 = sum2/4;
+		The two loops can be rewritten as the single function:
+		int calcAverage (int* Array_of_4)
+		{
+		   int sum = 0;
+		   for (int i = 0; i < 4; i++)
+		   {
+			   sum += Array_of_4[i];
+		   }
+		   return sum/4;
+		}
+		Using the above function will give source code that has no loop duplication:
+		extern int array1[];
+		extern int array2[];
+		 
+		int average1 = calcAverage(array1);
+		int average2 = calcAverage(array2);
+		-->
+	</div>
+	
+	<div class="step past" style="text-align:center;font-size:60px;padding:20px"
+		data-x="-400" data-y="6000" data-z="0" data-scale="3" data-rotate="0">
+	</div>
+	
+	<div class="step slide  past" style="text-align:center;"
+		data-x="1500" data-y="1500" data-z="0" data-scale="1" data-rotate="0">
+		<h1>高效的垃圾收集</h1>
+		<br><br>
+		<img src="img/3.png" height="400px" width="600px">
+	</div>
+	
+	<div class="step slide  past bgimg" style="background-image:url(img/4.png)" 
+		data-x="1500" data-y="2500" data-z="0" data-scale="1" data-rotate="0">
+	</div>
+	
+	<div class="step slide  past" style="text-align:center;"
+		data-x="1500" data-y="3500" data-z="0" data-scale="1" data-rotate="0">
+		<img src="img/5.png"  width="100%">
+		<h1>· 大量的类库</h1>
+		<br>
+		<h1>· 无数的文档</h1>
+		<br>
+		<h1>· 优秀的开发工具</h1>
+		<br>
+		<h1>……</h1>
+	</div>
+	
+	<div class="step slide  past" style="text-align:center;"
+		data-x="1500" data-y="4500" data-z="0" data-scale="1" data-rotate="0">
+		<div class="title" style="background:rgba(255,255,255,.55);padding-top:200px;">
+		如何写出高效的代码？</div>
+		<img src="img/6.png"  width="230px">
+	</div>
+	
+	<div class="step slide past" 
+		data-x="3000" data-y="1500" data-scale="1" data-rotate="0">
+        <h1>代码规则</h1>
+		<iframe src="include/editor2.html" height="610px" width="900px">
+		</iframe>
+    </div>
+	
+	<div class="step slide past" 
+		data-x="3000" data-y="2500" data-scale="1" data-rotate="0">
+        <h1>命名规则</h1>
+		<table style="margin-left:0px;font-size:30px" class="ppt-table">
+			<tr>
+				<th>类型</th>
+				<th>规则</th>
+				<th>例子</th>
+			</tr>
+			<tr>
+				<td>packages</td>
+				<td>小写单词组成,不可使用拼音.</td>
+				<td>com.apple.quicktime.v2</td>
+			</tr>
+			<tr>
+				<td>classes</td>
+				<td>大写字母开头,并能清晰表达其含义.建议模型类使用名词.</td>
+				<td>class Book</td>
+			</tr>
+			<tr>
+				<td>interface</td>
+				<td>与classes一致.</td>
+				<td>interface Exchangedata</td>
+			</tr><tr>
+				<td>method</td>
+				<td>大小写混合,第一个词使用小写,之后每个词首字母大写.建议使用动词.</td>
+				<td>getBackground()</td>
+			</tr><tr>
+				<td>variable</td>
+				<td>变量名大小写混合,第一个词使用小写,之后每个词首字母大写.建议使用动词.常用的变量可以按习惯使用,如循环变量.</td>
+				<td>int chargeRate;</td>
+			</tr>
+			<tr>
+				<td>constant</td>
+				<td>常量尽量使用单词的全称进行表达,并全部使用大写,词之间使用下划线进行分割.</td>
+				<td>static final int MIN_WIDTH = 4;</td>
+			</tr>
+		</table>
+    </div>
+	
+	<div class="step slide past" 
+		data-x="3000" data-y="3500" data-scale="1" data-rotate="0">
+        <h1>数据库操作</h1>
+		<iframe src="include/editorsql.html" height="610px" width="900px">
+		</iframe>
+    </div>
+	
+	<div class="step slide past" 
+		data-x="3000" data-y="4500" data-scale="1" data-rotate="0">
+        <h1>声明式事务</h1>
+		<iframe src="include/editorTrans.html" height="610px" width="900px">
+		</iframe>
+    </div>
+	
+    <div class="step slide past" 
+		data-x="4500" data-y="1500" data-scale="1" data-rotate="0">
+        <h1>线程安全吗？</h1>
+		<iframe src="include/editor.html" height="610px" width="900px">
+		</iframe>
+    </div>
+	
+	<div class="step slide  past" 
+		data-x="4500" data-y="2500" data-z="0" data-scale="1" data-rotate="0">
+		<h1>线程安全小结</h1>
+		<br>
+		<br>
+		<h3>· <span style="color:#F00">volatile</span></h3>
+		<h5>可以保证对一个变量读写的可见性、有序性。</h5>
+		<br>
+		<h3>· <span style="color:#F00">synchronized</span></h3>
+		<h5>可以保证同步段的原子性、可见性、有序性。</h5>
+		<h5>复合操作只能使用synchronized</h5>
+	</div>
+	
+	<div class="step slide  past" 
+		data-x="4500" data-y="3500" data-z="0" data-scale="1" data-rotate="0">
+		<h1>Find Bugs</h1>
+		<br>
+		<br>
+		<h3>· 基于字节码扫描，有效发现各种bug</h3>
+		<br>
+		<br>
+		<h3>· 尽量集成到你的编译过程</h3>
+		<br>
+		<br>
+		<h3>· 不要轻易忽略Find Bugs发现的错误</h3>
+	</div>
+	
+	<div class="step slide  past" 
+		data-x="4500" data-y="4500" data-z="0" data-scale="1" data-rotate="180">
+		<h1>总结</h1>
+		<br>
+		<br>
+		<h3>· JAVA的语言优势</h3>
+		<h5>Just In Time Compiler (JIT)</h5>
+		<h5>Grabage Collector</h5>
+		<br>
+		<h3>· 代码规范</h3>
+		<br>
+		<h3>· 编程惯例</h3>
+		<h5>数据库操作、异常、日志</h5>
+		<h5>Spring 声明式事务</h5>
+		<h5>线程安全</h5>
+	</div>
+	
+	<div class="step slide past bgimg" 
+		data-x="1000" data-y="0" data-scale="1" data-z="10" data-rotate="90" 
+		style="background-image:url(img/8.jpg)">
+		<div class="title" style="background:rgba(255,255,255,.55)">感谢聆听！</div>
+		<br>
+		<a href="http://chenhm.com" style="font-size:20px;margin-left:-260px;padding-top:50px;background:rgba(0,0,0,0);text-shadow:0px 0px 0px;">chenhm.com</a>
+	</div>
+
+	<!--
+    <div id="endstep" class="step past" 
+		data-x="3000" data-y="3500" data-scale="8" data-z="-10" data-rotate="0" style="vertical-align:middle">
+    </div>
+	-->
+</div>
+
+<!--
+<div id="overview" class="step present active" data-x="3000" data-y="1500" data-scale="12">
+</div>
+-->
+
+</div>
+
+
+
+
+<div class="vimiumReset vimiumHUD" style="right: 150px; opacity: 0; display: none; "></div>
+<script src="include/impress.js"></script>
+<script>
+//https://raw.github.com/bartaz/impress.js/master/js/impress.js
+impress().init()
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-39495276-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body></html>

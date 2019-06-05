@@ -1,0 +1,91 @@
+﻿<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Editor</title>
+  <link type="text/css" rel="stylesheet" href="editor.css">
+</head>
+<body>
+
+<pre id="editor">
+/*
+ * Example.java
+ *
+ * Copyright (c) 2011 Sunrise Corporation.
+ * #368, Guangzhou Avenue South, Haizhu District, Guangzhou
+ * All right reserved.
+ * 所有的源文件都应该在开头有一个C语言风格的注释，
+ * 其中列出类名、版本信息、日期和版权声明
+ * 2012-10-28
+ */
+package com.congxing.training;
+
+import java.util.Scanner;
+import static java.lang.System.out;
+/**
+ * The example for Java Code Conventions
+ * 1）注释要有效,并使没有源码的人员充分了解API的用途
+ * 2）注释不应包括诸如制表符、回退符、星号
+ * 	或其他字符之类的特殊字符。
+ * @author chenhm
+ *
+ */
+
+public class Example {
+	//① 静态成员变量 / Static Fields
+	// 使用常量定义具有含义的量,而不是直接使用数字、字符串
+	private static String MY_NAME = "Example";
+
+	//② 静态初始化块 / Static Initializers
+	static {
+		out.println("Static Initializers");
+	}
+
+	//③ 成员变量 / Fields
+	InnerClass inner = new InnerClass();
+
+	//④ 初始化块 / Initializers  或  构造器 / Constructors
+	{
+		out.println("Initializers");
+	}
+
+	/**
+	 * ⑤ 静态成员方法 / Static Methods
+	 * public的方法必须进行注释。
+	 * 边写代码边写注释,不要后补
+	 *
+	 */
+	public static void main(String[] args) {
+		out.println("what's your name?");
+		Scanner sc = new Scanner(System.in);
+		Example ex = new Example();
+		ex.sayHello(sc.next());
+	}
+
+	/**
+	 * ⑥ 成员方法 / Methods
+	 *
+	 */
+	public void sayHello(String name) {
+		out.printf("Hi %s,I'm %s.%n", name, MY_NAME);
+	}
+
+	//⑦ 类型(内部类) / Types(Inner Classes)
+	class InnerClass {
+		{
+			out.println("InnerClass Initializers");
+		}
+	}
+}
+
+</pre>
+<script src="ace-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/vibrant_ink");
+    editor.setFontSize(26);
+	editor.getSession().setMode("ace/mode/java");
+</script>
+
+</body>
+</html>

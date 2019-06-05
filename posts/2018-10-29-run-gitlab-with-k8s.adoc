@@ -1,0 +1,387 @@
+# 基于Kubernetes的Gitlab runner环境搭建（一）
+
+:numbered:
+
+http://chenhm.com[Chen Hongming]
+
+本文以单节点kubernetes(k8s)上安装gitlab测试环境为例，介绍了k8s和gitlab的基础知识，方便大家学习使用新的DevOps环境。例子中的环境为Redhat 7.4，kubernetes 1.12，Gitlab CE 11.4。
+
+## 环境准备
+
+### 升级系统内核
+
+虽然Docker官方要求Linux内核版本不低于3.10，但overlay2文件系统需要4.0以上的内核版本。RHEL在3.10.0-514以上通过安装时设置 `overlay2.override_kernel_check=true` 参数也可以强制使用overlay2，但简单起见，我们直接升级内核到最新的稳定版。不升级内核使用overlay2参考 https://docs.docker.com/storage/storagedriver/overlayfs-driver/#configure-docker-with-the-overlay-or-overlay2-storage-driver[这里]。
+
+1. 导入key
+    
+    rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+    
+2. 安装elrepo的yum源
+
+    rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+    
+3. 安装内核
+
+    yum --enablerepo=elrepo-kernel install kernel-ml-devel kernel-ml
+
+4. 查看默认启动顺序
+
+    awk -F\' '$1=="menuentry " {print $2}' /etc/grub2.cfg
+    Red Hat Enterprise Linux Server (4.18.14-1.el7.elrepo.x86_64) 7.4 (Maipo)
+    Red Hat Enterprise Linux Server (3.10.0-693.el7.x86_64) 7.4 (Maipo)
+    Red Hat Enterprise Linux Server (0-rescue-90676f243b93486d809800b50e88e186) 7.4 (Maipo)
++
+设置默认启动的顺序是从0开始，新内核是从头插入，目前位置在0，而旧的3.10是在1。
+
+    grub2-set-default 0
++
+然后reboot重启
+
+5. 删除旧的内核
+    
+    yum remove kernel
+    
+更详细的步骤参考 https://www.howtoforge.com/tutorial/how-to-upgrade-kernel-in-centos-7-server/
+
+### 安装docker
+
+安装docker参考 https://docs.docker.com/install/linux/docker-ce/centos/[官方指引] 是非常简单的，由于我的服务器在一台代理后面，所以需要额外设置docker的代理服务器，否则docker无法拉取镜像。
+
+.install-docker.sh
+```bash
+export {http,https}_proxy=http://hubproxy:8080
+export no_proxy=localhost
+yum install -y yum-utils \
+  device-mapper-persistent-data \
+  lvm2
+
+yum-config-manager \
+    --add-repo \
+        https://download.docker.com/linux/centos/docker-ce.repo
+
+#在RHEL 7.4中安装最新版的docker ce需要手工更新下，如果系统和docker都是最新版本则不需要
+#yum install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.68-1.el7.noarch.rpm
+
+yum install -y docker-ce
+
+#设置docker的代理服务器
+mkdir -p /etc/systemd/system/docker.service.d/
+cat <<EOF > /etc/systemd/system/docker.service.d/http-proxy.conf
+[Service]
+Environment="HTTP_PROXY=http://hubproxy:8080" "HTTPS_PROXY=http://hubproxy:8080" "NO_PROXY=localhost,127.0.0.1"
+EOF
+
+systemctl daemon-reload
+systemctl enable docker
+systemctl start docker
+```
+
+## Kubernetes的安装配置
+
+### 安装 kubeadm
+
+kubeadm是最主要的Kubernetes部署工具之一，它可以帮助完成k8s集群的初始化。 `kubeadm` 依赖 `kubelet` 来启动Master组件， `kubelet` 运行在集群的每个节点上用于启动Pod，同时我们还需要 `kubectl` 来管理集群。详细安装步骤参考 https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
+
+.install-kubeadm.sh
+```bash
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+setenforce 0
+yum install -y kubelet kubeadm kubectl
+
+# for RHEL/CentOS 7
+cat <<EOF >  /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sysctl --system
+
+# enable read-only port for heapster
+sed -i 's/KUBELET_EXTRA_ARGS=/KUBELET_EXTRA_ARGS=--read-only-port 10255 /' /etc/sysconfig/kubelet
+
+systemctl enable kubelet && systemctl start kubelet
+```
+
+### 初始化 kubernetes
+
+初始化k8s master节点最简单的方法就是直接执行 `kubeadm init`  ，这个命令会执行一系列的步骤：
+
+- 系统状态预检查
+- 生成自签名CA并签名每个组件
+- 生成kubeconfig用于kubelet连接API server
+- 为Master组件生成Static Pod manifests，并放到 /etc/kubernetes/manifests 目
+录中，kubelet会监视这个目录并初始化Pod
+- 配置RBAC并设置Master node只运行控制平面组件
+- 创建附加服务，比如kube-proxy和kube-dns
+
+下面的脚本我们在 `init` 的时候启用了一些扩展API供后面使用。 `init` 后的集群还需要安装网络插件CNI用于集群网络管理，这里我们使用WeaveNet的CNI实现。最后为了便于查看集群状态，我们还安装了Kubernetes Dashboard，并用NodePort的形式将它暴露到本地的30443端口。
+
+.startup-kube.sh
+```bash
+#kubeadm config images pull
+swapoff -a
+
+cat <<EOF > kubeadm.conf
+apiVersion: kubeadm.k8s.io/v1alpha3
+kind: ClusterConfiguration
+apiServerExtraArgs:
+  enable-admission-plugins: "NamespaceLifecycle,LimitRanger,ServiceAccount,NodeRestriction,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset"
+  runtime-config: "extensions/v1beta1=true,extensions/v1beta1/networkpolicies=true,admissionregistration.k8s.io/v1alpha1=true,settings.k8s.io/v1alpha1=true,api/all=true"
+EOF
+
+export {http,https}_proxy=http://hubproxy:8080
+curl -L -o weave.yaml "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+curl -L -o kubernetes-dashboard.yaml "https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml"
+unset http_proxy
+unset https_proxy
+
+kubeadm init --config=kubeadm.conf
+
+cat <<EOF >> kubernetes-dashboard.yaml
+---
+# ------------------- Dashboard Service ------------------- #
+
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard
+  namespace: kube-system
+spec:
+  ports:
+    - port: 443
+      targetPort: 8443
+      nodePort: 30443
+  type: NodePort
+  selector:
+    k8s-app: kubernetes-dashboard
+EOF
+
+
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+# modprobe -a ip_vs ip_vs_rr ip_vs_wrr ip_vs_sh
+
+# using weave net as CNI
+# sysctl net.bridge.bridge-nf-call-iptables=1
+kubectl apply -f weave.yaml
+
+# Allowing pod scheduling on the master node
+kubectl taint nodes --all node-role.kubernetes.io/master-
+
+kubectl apply -f kubernetes-dashboard.yaml
+
+#CentOS firewalld is completely incompatible with kubernetes
+systemctl disable firewalld
+systemctl stop firewalld
+```
+
+等待Pod启动完成后可以通过 https://host:30443 访问dashboard。
+
+### 创建访问账号和RBAC
+
+在上一步访问dashboard的时候会发现提示访问token，这是因为刚创建好的k8s还没有访问账号， https://github.com/kubernetes/dashboard/wiki/Creating-sample-user[这里] 有个简单的账号设置官方示例。我们则需要多设一些权限供gitlab使用。
+
+.user.yaml
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kube-system
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: default
+  name: pod-and-pod-logs-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: admin-user-log
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pod-and-pod-logs-reader
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kube-system
+```
+
+执行以下脚本设置RBAC并获取访问Token。
+
+```bash
+kubectl apply -f user.yaml
+
+kubectl create clusterrolebinding my-cluster-admin \
+ --clusterrole=cluster-admin \
+ --user=system:serviceaccount:default:default
+ 
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+```
+
+## Gitlab的安装配置
+
+### 安装 gitlab
+
+由于gitlab组件众多，最简单的方式就是使用官方docker image运行。为了将docker内部的gitlab暴露出来，需要添加 `external_url` 参数，详细配置参考 https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/configuration.md#configuration-options[configuration-options]，可以根据自己情况修改下面的启动脚本。
+
+.run-gitlab.sh
+```bash
+# 31480 is my external port, you can set it to whatever you like, but need to be consistent
+cat <<EOF > gitlab.rb
+external_url 'http://host:31480'
+EOF
+
+docker run -d --name gitlab -p 31480:31480 -v "`pwd`/gitlab.rb:/etc/gitlab/gitlab.rb" gitlab/gitlab-ce
+```
+
+等docker起来后访问 http://host:31480 即可登录gitlab，第一次访问会要求设置root账户的密码。
+
+### 设置 gitlab-runner
+
+Gitlab实际执行的job都是在runner节点上运行的，这里我们使用刚刚创建的k8s作为runner环境，让gitlab调度k8s创建pod执行job。gitlab 官方文档仅描述了如何在 https://docs.gitlab.com/runner/install/kubernetes.html[k8s 中启动gitlab runner]，但通常在运行之前需要先注册runner，我们参考 https://gitlab.com/gitlab-org/gitlab-runner/issues/2002#note_35828301[这个issue] 利用initContainer完成注册。
+
+1. 找到注册token。访问 http://host:31480/admin/runners，会看到一段随机的 `registration token`。
+
+2. 修改下面yaml配置中的 `REGISTRATION_TOKEN` 参数值为上一步查询到的token，然后执行 `kubectl apply -f gitlab-runner.yaml` 完成注册。
++
+.gitlab-runner.yaml
+```yaml
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: gitlab-runner
+  labels:
+    app: gitlab-runner
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gitlab-runner
+    spec:
+      initContainers:
+        - name: init-runner
+          image: gitlab/gitlab-runner:latest
+          args:
+            - register
+          env:
+            - name: CI_SERVER_URL
+              value: "http://host:31480/"
+            - name: REGISTER_NON_INTERACTIVE
+              value: "true"
+            - name: REGISTRATION_TOKEN
+              value: "BsxzTZQzLayGpqS8qwkx"
+            - name: RUNNER_TAG_LIST
+              value: "kube,test"
+            - name: RUNNER_EXECUTOR
+              value: kubernetes
+            - name: RUNNER_REQUEST_CONCURRENCY
+              value: "10"
+            # Must use privileged mode for docker-in-docker
+            - name: KUBERNETES_PRIVILEGED
+              value: "true"
+            # More variables as needed (see below)
+          volumeMounts:
+            - mountPath: /etc/gitlab-runner
+              name: config
+            - mountPath: /etc/ssl/certs
+              name: cacerts
+              readOnly: true
+        - name: init-runner-volume
+          image: alpine
+          command: ["sh", "-c"]
+          # Append hostpath mount to configuration because there is no env variable for it
+          # https://gitlab.com/gitlab-org/gitlab-ci-multi-runner/issues/2578
+          args:
+            - |
+              cat <<EOF >> /etc/gitlab-runner/config.toml
+                [[runners.kubernetes.volumes.host_path]]
+                name = "docker-sock"
+                mount_path = "/var/run/docker.sock"
+                host_path = "/var/run/docker.sock"
+              EOF
+          volumeMounts:
+            - mountPath: /etc/gitlab-runner
+              name: config
+      containers:
+        - name: runner
+          image: gitlab/gitlab-runner:latest
+          args:
+            - run
+          volumeMounts:
+            - mountPath: /etc/gitlab-runner
+              name: config
+            - mountPath: /etc/ssl/certs
+              name: cacerts
+              readOnly: true
+      volumes:
+        - name: cacerts
+          hostPath:
+            path: /usr/share/ca-certificates/mozilla
+        - name: config
+          emptyDir: {}
+
+```
+
+### 测试pipeline脚本
+
+我们建立一个调用redis服务的pipeline脚本来体验gitlab CI的能力。
+
+1. 新建一个空项目。
+
+2. 在项目根路径创建 `.gitlab-ci.yml`  文件，这是gitlab默认的CI配置文件路径。
++
+.__.gitlab-ci.yml__
+```yaml
+services:
+- redis <1>
+
+variables:
+  # Configure redis service (https://hub.docker.com/_/redis/)
+  # Here's nothing to configure :)
+
+connect:
+  # Connect to redis
+  image: redis <2>
+  tags:
+  - kube <3>
+  script:
+  - redis-cli -h localhost PING <4>
+```
+<1> 拉取redis image并作为服务启动。
+<2> 使用redis image作为connect job的执行环境。
+<3> 指定在tag包含kube的runner执行
+<4> 由于redis service和connect job这两个docker都在同一个Pod内执行，它们共享相同的localhost地址，我们直接使用localhost访问另一个docker上的redis服务。
+
+3. 访问项目的 CI/CD -- Pipelines 页面查看job执行情况。
+
+至此我们已成功集成了Gitlab和k8s，下一篇将会深入介绍一些功能。

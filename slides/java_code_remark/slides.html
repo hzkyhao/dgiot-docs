@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>JAVA编码规范</title>
+    <link type="text/css" rel="stylesheet" href="include/style.css" media="screen">
+  </head>
+  <body>
+<textarea id="source">
+class: center, middle, inverse
+
+# JAVA编码规范
+
+### by [chenhm](http://chenhm.com)
+
+---
+class: center, middle
+
+# 为什么使用JAVA？
+
+ <img src="img/java2.png" height="505px" width="280px">
+
+---
+class: center, middle
+
+# 广泛使用在各种业务场景和学术研究上
+
+<img src="../java_code_web/img/tpci_trends.png">
+
+---
+class: center, middle
+background-image: url(img/2.png)
+
+#跨平台
+
+<span style="font-size:30px">——虽然有时候不尽人意</span>
+
+---
+class: right
+background-image: url(img/1.png)
+
+# 高性能
+---
+class: middle
+
+# Just In Time Compiler (JIT)
+    
+- ###Lock eliding 锁消除
+- ###Method inline 内联
+- ###Dead code elimination死代码消除
+- ###Loop unrolling 循环展开
+- ###Lock coarsening 锁粗化
+- ###Escape analysis 逃逸分析
+- ###Duplicate code elimination 重复代码消除
+        
+
+---
+class: center, middle
+
+# 高效的垃圾收集
+
+<img src="img/3.png" height="400px" width="600px">
+---
+background-image:url(img/4.png)
+
+---
+class: center, middle
+
+<img src="img/5.png"  width="100%">
+# 大量的类库
+# 无数的文档
+# 优秀的开发工具
+# ……
+---
+class: center, middle
+
+# 如何写出高效的代码？
+<img src="img/6.png"  width="230px">
+---
+class: center, middle
+
+# 代码规则
+
+```java
+/*
+ * Example.java
+ *
+ * Copyright (c) 2013 Sunrise Corporation.
+ * #368, Guangzhou Avenue South, Haizhu District, Guangzhou
+ * All right reserved.
+ * 所有的源文件都应该在开头有一个C语言风格的注释，
+ * 其中列出类名、版本信息、日期和版权声明
+ * 2013-06-27
+ */
+package com.congxing.training;
+
+import java.util.Scanner;
+import static java.lang.System.out;
+
+/**
+ * The example for Java Code Conventions
+ * 1）注释要有效,并使没有源码的人员充分了解API的用途
+ * 2）注释不应包括诸如制表符、回退符、星号
+ *     或其他字符之类的特殊字符。
+ * @author chenhm
+ *
+ */
+public class Example {
+    //① 静态成员变量 / Static Fields
+    // 使用常量定义具有含义的量,而不是直接使用数字、字符串
+    private static String MY_NAME = "Example";
+
+    //② 静态初始化块 / Static Initializers
+    static {
+        out.println("Static Initializers");
+    }
+
+    //③ 成员变量 / Fields
+    InnerClass inner = new InnerClass();
+
+    //④ 初始化块 / Initializers  或  构造器 / Constructors
+    {
+        out.println("Initializers");
+    }
+
+    /**
+     * ⑤ 静态成员方法 / Static Methods
+     * public的方法必须进行注释。
+     * 边写代码边写注释,不要后补
+     *
+     */
+    public static void main(String[] args) {
+        out.println("what's your name?");
+        Scanner sc = new Scanner(System.in);
+        Example ex = new Example();
+        ex.sayHello(sc.next());
+    }
+
+    /**
+     * ⑥ 成员方法 / Methods
+     *
+     */
+    public void sayHello(String name) {
+        out.printf("Hi %s,I'm %s.%n", name, MY_NAME);
+    }
+
+    //⑦ 类型(内部类) / Types(Inner Classes)
+    class InnerClass {
+        {
+            out.println("InnerClass Initializers");
+        }
+    }
+}
+```
+---
+class: center
+
+# 命名规则
+<table class="ppt-table">
+    <tr>
+        <th>类型</th>
+        <th>规则</th>
+        <th>例子</th>
+    </tr>
+    <tr>
+        <td>packages</td>
+        <td>小写单词组成,不可使用拼音.</td>
+        <td>com.apple.quicktime.v2</td>
+    </tr>
+    <tr>
+        <td>classes</td>
+        <td>大写字母开头,并能清晰表达其含义.建议模型类使用名词.</td>
+        <td>class Book</td>
+    </tr>
+    <tr>
+        <td>interface</td>
+        <td>与classes一致.</td>
+        <td>interface Exchangedata</td>
+    </tr><tr>
+        <td>method</td>
+        <td>大小写混合,第一个词使用小写,之后每个词首字母大写.建议使用动词.</td>
+        <td>getBackground()</td>
+    </tr><tr>
+        <td>variable</td>
+        <td>变量名大小写混合,第一个词使用小写,之后每个词首字母大写.建议使用动词.常用的变量可以按习惯使用,如循环变量.</td>
+        <td>int chargeRate;</td>
+    </tr>
+    <tr>
+        <td>constant</td>
+        <td>常量尽量使用单词的全称进行表达,并全部使用大写,词之间使用下划线进行分割.</td>
+        <td>static final int MIN_WIDTH = 4;</td>
+    </tr>
+</table>
+
+---
+class: center, middle
+
+# 数据库操作
+
+```java
+public class JDBC {
+    private org.slf4j.Logger logger =
+        org.slf4j.LoggerFactory.getLogger(getClass());
+
+    public void insert(){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            Context ctx = new InitialContext();
+            DataSource ds =
+                (DataSource)ctx.lookup("java/TestDB");
+            conn = ds.getConnection();
+            ps = conn.prepareStatement(
+                "INSERT INTO EMPLOYEE VALUES(?)");
+            ps.setString(1, "Jeff");
+            ps.addBatch();
+            ps.setString(1, "John");
+            ps.addBatch();
+            //当插入或更新大批量数据时，
+            //我们必须使用batch insert/update方式
+            //减少后台数据库的访问和操作，以提高系统的性能
+            ps.executeBatch();
+        } catch (NamingException | SQLException ex) {
+            logger.info("Exception: {}", ex.getMessage());
+            //使用日志框架千万不要忘记记录堆栈
+            logger.info("StackTrace:", ex);
+            //throw new OtherException();  don't do this!
+        } finally{
+            //DB、MQ、FILE、SOCKET都是重要资源，一定要关闭
+            JdbcUtils.closeStatement(ps);
+            JdbcUtils.closeConnection(conn);
+        }
+    }
+
+    public void query(){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            Context ctx = new InitialContext();
+            DataSource ds =
+                (DataSource)ctx.lookup("java/TestDB");
+            conn = ds.getConnection();
+            //必须使用prepare，SQL拼装在项目里是绝对禁止的
+            ps = conn.prepareStatement(
+                //建立正确的数据库表空间和表索引
+                "SELECT id,name from EMPLOYEE where id = ?"
+
+                //指定游标类型为只读(CONCUR_READ_ONLY)
+                //和前向读取(TYPE_FORWARD_ONLY),
+                //否则大结果集可能造成内存溢出
+                ,ResultSet.TYPE_FORWARD_ONLY
+                ,ResultSet.CONCUR_READ_ONLY);
+            rs = ps.executeQuery();
+            for(;rs.next();){
+                //do something
+            }
+        } catch (NamingException | SQLException ex) {
+            logger.info("Exception: {}", ex.getMessage());
+            logger.info("StackTrace:", ex);
+        } finally {
+            JdbcUtils.closeResultSet(rs);
+            JdbcUtils.closeStatement(ps);
+            JdbcUtils.closeConnection(conn);
+        }
+    }
+}
+```
+
+---
+class: center, middle
+
+# IO操作
+
+---
+class: center, middle, inverse
+
+# 记得关闭
+
+---
+class: center, middle
+
+# 声明式事务
+
+```java
+public class ADao{
+
+    @Transactional(propagation=Propagation.REQUIRES_NEW)
+    public void saveA(A a){
+        //1.保存a
+        //2.保存a的明细
+    }
+
+    /*  addAll可以保证事务吗？ */
+    public void addAll(A[] aList){
+        for(int i=0;i < aList.size();i++){
+            A a = aList[i];
+            saveA(a);
+        }
+    }
+}
+```
+---
+name: default
+layout: true
+task: &nbsp;
+
+.task[{{task}}]
+---
+class: center
+
+# 线程安全吗？
+
+```java
+public class Shared{
+
+    private long value = 0;
+
+    public long getValue() {
+        return value;
+    }
+
+    public void setValue(long val) {
+        this.value = val;
+    }
+}
+```
+---
+class: center
+
+# 线程安全吗？
+
+```java
+public class Shared{
+
+    private long value = 0;
+
+    public long getValue() {
+        return value;
+    }
+
+    public void setValue(long val) {
+        this.value = val;
+    }
+}
+```
+
+###JVM按4byte操作内存，所以`this.value = val`可能写入任何值
+
+---
+
+# atomic test
+
+```java
+class Shared{
+    private long value = 0L;
+    public long getValue() {
+        return value;
+    }
+    public void setValue(long val) {
+        this.value = val;
+    }
+}
+
+public class SynTest {
+    static Shared race = new Shared();
+    static final long a = 1234567891234L;
+    static final long b = 123L;
+    static final int THREDS_COUNT = 20;
+
+    public static void main(String[] args) {
+        Thread[] threads = new Thread[THREDS_COUNT];
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for(int i = 0;i<10000;i++){
+                        race.setValue(a);
+                        race.setValue(b);
+                        long val = race.getValue();
+                        if(val != a && val != b){
+                            System.out.println(val);
+                            //1232655614075
+                            //1912277282
+                        }
+                    }
+                }
+            });
+            threads[i].start();
+        }
+
+        for(;Thread.activeCount() > 1;){
+            Thread.yield();
+        }
+    }
+}
+
+```
+---
+class: center
+
+# 对write加锁能保障线程安全吗？
+
+```java
+public class Shared{
+
+    private long value = 0;
+
+    public long getValue() {
+        return value;
+    }
+
+    public synchronized void setValue(long val) {
+        this.value = val;
+    }
+}
+```
+
+---
+class: center
+
+# volatile
+
+```java
+public class Shared{
+
+    private /* volatile */ long value = 0;
+
+    public long getValue() {
+        return value;
+    }
+
+    public void setValue(long val) {
+        this.value = val;
+    }
+}
+```
+
+### .red[volatile] 可以保证对一个变量读写的可见性、有序性。
+
+---
+
+# atomic test 2
+
+```java
+class Shared{
+    private volatile long value = 0;
+    public long getValue() {
+        return value;
+    }
+    public void setValue(long val) {
+        this.value = val;
+    }
+    public long incrementAndGet(){
+        return value++;
+    }
+}
+
+public class SynTest {
+    private static Shared race = new Shared();
+    private static final int THREDS_COUNT = 20;
+
+    public static void main(String[] args) {
+        Thread[] threads = new Thread[THREDS_COUNT];
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for(int i = 0;i<10000;i++){
+                        race.incrementAndGet();
+                    }
+                }
+            });
+            threads[i].start();
+        }
+
+        for(;Thread.activeCount() > 1;){
+            Thread.yield();
+        }
+
+        System.out.println(race.getValue());
+    }
+}
+
+```
+---
+class: center
+
+# synchronized
+
+```java
+public class Shared{
+
+    private volatile long value = 0;
+
+    public long getValue() {
+        return value;
+    }
+
+    public void setValue(long val) {
+        this.value = val;
+    }
+
+    public /* synchronized */ long incrementAndGet(){
+        return value++;
+    }
+}
+```
+
+.left[
+### .red[synchronized] 可以保证同步段的原子性、可见性、有序性。
+
+### 复合操作只能使用 .red[synchronized]
+
+### 我们无法对原子类型加同步锁
+]
+
+---
+class: center
+
+# synchronized 粒度
+
+```java
+public class Shared{
+
+    private static double value = 0;
+    final static Object lock = new Object();
+    public static double getValue() {
+        synchronized (lock) {
+            return value;
+        }
+    }
+
+    public static void setValue(double val) {
+        synchronized (lock) {
+            this.value = val;
+        }
+    }
+
+}
+```
+
+### 通过自行设置lock对象，降低锁的粒度
+---
+
+# .center[性能与安全]
+
+- ###避免使用`Vector`和`HashTable`等旧的集合实现，单线程中使用`ArrayList`代替`Vector`，使用`HashMap`代替`HashTable`，多线程中用`java.util.concurrent.ConcurrentHashMap`代替`HashMap`。
+<br/>
+
+- ###使用`java.util.concurrent.atomic`包提供的原子类
+<br/>
+
+- ###避免使用太多的`synchronized`关键字,尽量将同步最小化
+<br/>
+
+- ###考虑使用`ThreadLocal`隔离变量
+<br/>
+
+- ###严禁使用`System.out.print`调试多线程代码
+
+---
+class: middle
+
+# 线程安全     反例
+
+```java
+final static SimpleDateFormat sdf =
+                    new SimpleDateFormat("yyyy-MM-dd");
+public String format(Date date){
+    return sdf.format(date);
+}
+```
+
+> ### Date formats are not synchronized. It is recommended to create separate format instances for each thread. If multiple threads access a format concurrently, it must be synchronized externally.
+> ### .right[ —— javadoc]
+
+---
+class: middle
+# Find Bugs
+<br>
+
+- ###基于字节码扫描，有效发现各种bug
+<br>
+
+- ###尽量集成到你的编译过程
+<br>
+
+- ###不要轻易忽略Find Bugs发现的错误
+---
+class: center, middle
+
+# 内存计算
+<br/><br/><br/><br/><br/>
+### `String str = new String("abc");`在堆中需要多少内存？
+
+---
+
+# String的定义
+
+```java
+public final class String 
+    implements java.io.Serializable, Comparable<String>,
+                CharSequence{
+    /** The value is used for character storage. */
+    private final char value[];
+
+    /** Cache the hash code for the string */
+    private int hash; // Default to 0
+
+    private static final int HASHING_SEED;
+    private static final long serialVersionUID = 
+                                    -6849794470754667710L;
+                                    
+    /** The offset is the first index of the 
+    storage that is used. */
+    private final int offset;
+
+    /** The count is the number of characters in the String. */
+    private final int count;
+}
+```
+JDK7 开始已经去掉了`offset`和`count`
+---
+
+# String的内存计算
+
+```java
+public final class String {
+    /** The value is used for character storage. */
+    private final char value[];
+
+    /** Cache the hash code for the string */
+    private int hash; // Default to 0
+}
+```
+---
+
+# String的内存计算
+
+```java
+public final class String {
+    /** The value is used for character storage. */
+    private final char value[];
+
+    /** Cache the hash code for the string */
+    private int hash; // Default to 0
+}
+```
+- ### `char value[]`：对象类型，存放指向实际对象的指针，4Byte
+- ### `hash`：原始类型，直接存放值，4Byte
+- ### String自身的元数据，8Byte
+- ### 总计16Byte
+---
+
+# String的内存计算
+
+```java
+public final class String {
+    /** The value is used for character storage. */
+    private final char value[] = new char[]{'a','b','c'};
+
+    /** Cache the hash code for the string */
+    private int hash; // Default to 0
+}
+```
+- ### `char[]`：也是对象，自身8Byte的元数据
+- ### 3个char，`\(\underbrace{a+b+c}_{3}=6Byte\)`
+- ### 数组长度，4Byte
+- ### 总计18Byte，向8补齐，占用24Byte
+---
+
+# String的内存计算
+
+```java
+String str = new String("abc");
+```
+- ### 总内存16Byte + 24Byte = 40Byte
+- ### `str`也代表了一个指针，一般需要额外的4Byte
+
+---
+
+# String的内存计算
+
+```java
+String str = new String("abc");
+```
+- ### 总内存16Byte + 24Byte = 40Byte
+- ### `str`也代表了一个指针，一般需要额外的4Byte
+
+<br/>
+## 为了存储6Byte的数据，我们用了40Byte的空间，JDK6还要更多。
+<br/>
+## 请小心创建对象。
+---
+class: middle
+.center[
+#总结
+]
+<br/>
+## JAVA的语言优势
+  - ###Just In Time Compiler (JIT)
+  - ###Grabage Collector
+
+## 代码规范
+
+## 编程惯例
+  - ###数据库操作、异常、日志
+  - ###Spring 声明式事务
+  - ###线程安全
+  - ###内存计算
+---
+name: last-page
+class: center, middle, inverse
+
+## 感谢聆听!
+<br>
+### chenhm@gmail.com
+
+.footnote[Slideshow created using [remark](http://github.com/gnab/remark).]
+
+</textarea>
+<script src="include/remark-0.5.0.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured"></script>
+<script>
+var source = document.getElementById('source');
+source.innerHTML = source.innerHTML.replace(/^\?.+\n/gm, '\n');
+var slideshow = remark.create({
+  ratio: '4:3',
+  highlightStyle: 'monokai',
+  //highlightLanguage: 'javascript'
+}) ;
+
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var alljax = MathJax.Hub.getAllJax();
+  alljax = Array.prototype.slice.call(alljax,0)
+  alljax.each(function(elem){
+    elem.SourceElement().parentElement.className += ' has-jax';
+  })
+});
+MathJax.Hub.Configured();
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-39495276-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>
