@@ -1,0 +1,80 @@
+= 数蛙IOT API
+
+
+[[_overview]]
+== Overview
+数蛙物联网平台API接口, 高并发全连接物联网平台,支持私有云部署的全开放的IoT产品全生命周期管理平台
+
+
+=== Version information
+[%hardbreaks]
+__Version__ : 1.4.1
+
+
+=== Contact information
+[%hardbreaks]
+__Contact__ : 技术支持
+__Contact Email__ : service@iotn2n.com
+
+
+=== License information
+[%hardbreaks]
+__Terms of service__ : http://www.iotn2n.com
+
+
+=== URI scheme
+[%hardbreaks]
+__Host__ : prod.iotn2n.com:5080
+__BasePath__ : /iotapi
+__Schemes__ : HTTP
+
+
+=== Tags
+
+* Api : 表Api的操作
+* App : 表App的操作
+* Batch : 数据批处理
+* CloudFile : 表CloudFile的操作
+* Config : 配置
+* DataItem : 表DataItem的操作
+* Datas : 表Datas的操作
+* Department : 表Department的操作
+* Devices : 表Devices的操作
+* Dtu : 表Dtu的操作
+* Functions : 云函数
+* Log : 表Log的操作
+* MainStationIndex : 表MainStationIndex的操作
+* Menu : 表Menu的操作
+* Notification : 表Notification的操作
+* Permission : 表Permission的操作
+* PumpData : 表PumpData的操作
+* Report : 表Report的操作
+* Smartmeter : 表Smartmeter的操作
+* System : 系统操作接口
+* Testbed : 表Testbed的操作
+* Users : 用户相关
+* Vconcentator : 集中器操作
+* _Role : 表_Role的操作
+* _Session : 表_Session的操作
+* _User : 表_User的操作
+* smartdevhistory : 表smartdevhistory的操作
+* yhmx : 表yhmx的操作
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+=== External Docs
+[%hardbreaks]
+__Description__ : API and SDK Documentation
+__URL__ : http://www.iotn2n.com/doc/
+
+
+

@@ -1,0 +1,1558 @@
+
+[[_definitions]]
+== Definitions
+
+[[_api]]
+=== Api
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**catalog** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**description** +
+__optional__||string
+|**method** +
+__optional__||string
+|**number** +
+__optional__||number
+|**objectId** +
+__optional__||string
+|**param** +
+__optional__||< object > array
+|**path** +
+__optional__||string
+|**remark** +
+__optional__||string
+|**return** +
+__optional__||string
+|**return_param** +
+__optional__||< object > array
+|**title** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|**url** +
+__optional__||string
+|===
+
+
+[[_app]]
+=== App
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**config** +
+__optional__||object
+|**createdAt** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**secret** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|**user** +
+__optional__||<<_app_user,user>>
+|===
+
+[[_app_user]]
+**user**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"_User"`|string
+|**objectId** +
+__optional__||string
+|===
+
+
+[[_batch]]
+=== Batch
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**requests** +
+__optional__|< <<_batch_requests,requests>> > array
+|===
+
+[[_batch_requests]]
+**requests**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**body** +
+__optional__|object
+|**method** +
+__optional__|string
+|**path** +
+__optional__|string
+|===
+
+
+[[_cloudfile]]
+=== CloudFile
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**action** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**description** +
+__optional__||object
+|**filepath** +
+__optional__||object
+|**itemid** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**source** +
+__optional__||string
+|**table** +
+__optional__||string
+|**title** +
+__optional__||string
+|**type** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|===
+
+
+[[_config]]
+=== Config
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**params** +
+__optional__|object
+|===
+
+
+[[_dataitem]]
+=== DataItem
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**byteCount** +
+__optional__||number
+|**catagory** +
+__optional__||string
+|**check** +
+__optional__||object
+|**createdAt** +
+__optional__||string
+|**daClass** +
+__optional__||number
+|**dataFormat** +
+__optional__||string
+|**describe** +
+__optional__||object
+|**itemCode** +
+__optional__||string
+|**itemName** +
+__optional__||string
+|**itemType** +
+__optional__||<<_dataitem_itemtype,itemType>>
+|**localAt** +
+__optional__||number
+|**objectId** +
+__optional__||string
+|**parseText** +
+__optional__||string
+|**property** +
+__optional__||object
+|**readable** +
+__optional__||boolean
+|**superCode** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|**writeable** +
+__optional__||boolean
+|===
+
+[[_dataitem_itemtype]]
+**itemType**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"MainStationIndex"`|string
+|**objectId** +
+__optional__||string
+|===
+
+
+[[_datas]]
+=== Datas
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**createdAt** +
+__optional__||string
+|**data** +
+__optional__||object
+|**objectId** +
+__optional__||string
+|**type** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|===
+
+
+[[_department]]
+=== Department
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**ParentId** +
+__optional__||string
+|**children** +
+__optional__||<<_department_children,children>>
+|**createdAt** +
+__optional__||string
+|**leafnode** +
+__optional__||boolean
+|**level** +
+__optional__||string
+|**name** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**order** +
+__optional__||number
+|**updatedAt** +
+__optional__||string
+|===
+
+[[_department_children]]
+**children**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Relation"`|string
+|**className** +
+__optional__|**Example** : `"Department"`|string
+|===
+
+
+[[_devices]]
+=== Devices
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**basedata** +
+__optional__||object
+|**createdAt** +
+__optional__||string
+|**dashboard** +
+__optional__||object
+|**devaddr** +
+__optional__||string
+|**devtype** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|===
+
+
+[[_dtu]]
+=== Dtu
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**createdAt** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|===
+
+
+[[_file]]
+=== File
+__Type__ : string
+
+
+[[_log]]
+=== Log
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**application** +
+__optional__||string
+|**author** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**datetime** +
+__optional__||number
+|**function** +
+__optional__||string
+|**level** +
+__optional__||string
+|**line** +
+__optional__||number
+|**module** +
+__optional__||string
+|**msg** +
+__optional__||string
+|**node** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**parentId** +
+__optional__||string
+|**pid** +
+__optional__||string
+|**spanId** +
+__optional__||string
+|**traceId** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|===
+
+
+[[_mainstationindex]]
+=== MainStationIndex
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**ParentId** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**daClass** +
+__optional__||number
+|**leafnode** +
+__optional__||boolean
+|**name** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**order** +
+__optional__||number
+|**updatedAt** +
+__optional__||string
+|===
+
+
+[[_menu]]
+=== Menu
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**createdAt** +
+__optional__||string
+|**group** +
+__optional__||string
+|**icon** +
+__optional__||string
+|**name** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**orderBy** +
+__optional__||number
+|**parentId** +
+__optional__||string
+|**roles** +
+__optional__||<<_menu_roles,roles>>
+|**updatedAt** +
+__optional__||string
+|**url** +
+__optional__||string
+|===
+
+[[_menu_roles]]
+**roles**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Relation"`|string
+|**className** +
+__optional__|**Example** : `"_Role"`|string
+|===
+
+
+[[_notification]]
+=== Notification
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**content** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**deletedBy** +
+__optional__||<<_notification_deletedby,deletedBy>>
+|**objectId** +
+__optional__||string
+|**public** +
+__optional__||boolean
+|**readBy** +
+__optional__||<<_notification_readby,readBy>>
+|**sender** +
+__optional__||<<_notification_sender,sender>>
+|**type** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|**user** +
+__optional__||<<_notification_user,user>>
+|===
+
+[[_notification_deletedby]]
+**deletedBy**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Relation"`|string
+|**className** +
+__optional__|**Example** : `"_User"`|string
+|===
+
+[[_notification_readby]]
+**readBy**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Relation"`|string
+|**className** +
+__optional__|**Example** : `"_User"`|string
+|===
+
+[[_notification_sender]]
+**sender**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"_User"`|string
+|**objectId** +
+__optional__||string
+|===
+
+[[_notification_user]]
+**user**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"_User"`|string
+|**objectId** +
+__optional__||string
+|===
+
+
+[[_permission]]
+=== Permission
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**alias** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**name** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**parent** +
+__optional__||<<_permission_parent,parent>>
+|**updatedAt** +
+__optional__||string
+|===
+
+[[_permission_parent]]
+**parent**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"Permission"`|string
+|**objectId** +
+__optional__||string
+|===
+
+
+[[_permissions]]
+=== Permissions
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**addField** +
+__optional__|objectId role:RoleName 或 *(表示所有) +
+**Example** : `{
+  "*" : true
+}`|object
+|**create** +
+__optional__|objectId role:RoleName 或 *(表示所有) +
+**Example** : `{
+  "role:RoleName" : true
+}`|object
+|**delete** +
+__optional__|objectId role:RoleName 或 *(表示所有) +
+**Example** : `{
+  "aSaMpLeUsErId" : true
+}`|object
+|**find** +
+__optional__|objectId role:RoleName 或 *(表示所有) +
+**Example** : `{
+  "role:RoleName" : true
+}`|object
+|**get** +
+__optional__|objectId role:RoleName 或 *(表示所有) +
+**Example** : `{
+  "role:RoleName" : true
+}`|object
+|**update** +
+__optional__|objectId role:RoleName 或 *(表示所有) +
+**Example** : `{
+  "role:RoleName" : true
+}`|object
+|===
+
+
+[[_pumpdata]]
+=== PumpData
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**createdAt** +
+__optional__||string
+|**data** +
+__optional__||object
+|**itemId** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**reportId** +
+__optional__||<<_pumpdata_reportid,reportId>>
+|**type** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|===
+
+[[_pumpdata_reportid]]
+**reportId**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"Report"`|string
+|**objectId** +
+__optional__||string
+|===
+
+
+[[_report]]
+=== Report
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**client** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**datas** +
+__optional__||object
+|**inspection_number** +
+__optional__||string
+|**model** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**produt** +
+__optional__||string
+|**standard** +
+__optional__||string
+|**testbed** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|===
+
+
+[[_smartmeter]]
+=== Smartmeter
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**addr** +
+__optional__||string
+|**addr_web** +
+__optional__||string
+|**appeui** +
+__optional__||string
+|**bddl** +
+__optional__||string
+|**btl** +
+__optional__||string
+|**building** +
+__optional__||string
+|**cbqd** +
+__optional__||string
+|**ccbh** +
+__optional__||string
+|**city** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**cz** +
+__optional__||string
+|**data** +
+__optional__||object
+|**datats** +
+__optional__||object
+|**deveui** +
+__optional__||string
+|**dhpc** +
+__optional__||string
+|**eddy** +
+__optional__||string
+|**gddw** +
+__optional__||string
+|**jlbx** +
+__optional__||string
+|**jldbh** +
+__optional__||string
+|**jlddz** +
+__optional__||string
+|**jldwz** +
+__optional__||string
+|**jlfs** +
+__optional__||string
+|**jlzzfl** +
+__optional__||string
+|**jsondata** +
+__optional__||object
+|**linshi** +
+__optional__||string
+|**ljdz** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**organization** +
+__optional__||<<_smartmeter_organization,organization>>
+|**pn** +
+__optional__||number
+|**prop** +
+__optional__||string
+|**province** +
+__optional__||string
+|**sblb** +
+__optional__||string
+|**sblx** +
+__optional__||string
+|**sccj** +
+__optional__||string
+|**scjyrq** +
+__optional__||string
+|**shortaddr** +
+__optional__||string
+|**tq** +
+__optional__||string
+|**ts** +
+__optional__||number
+|**txfs** +
+__optional__||string
+|**type** +
+__optional__||string
+|**tysj** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|**vcaddr** +
+__optional__||string
+|**vcaddr_web** +
+__optional__||string
+|**version** +
+__optional__||string
+|**xgwzh** +
+__optional__||string
+|**xl** +
+__optional__||string
+|**xqdz** +
+__optional__||string
+|**xqmc** +
+__optional__||string
+|**yhabh** +
+__optional__||string
+|**yhdz** +
+__optional__||string
+|**yhlb** +
+__optional__||string
+|**yhmc** +
+__optional__||string
+|**zcbh** +
+__optional__||string
+|**zfbbz** +
+__optional__||string
+|**zhbl** +
+__optional__||string
+|**zqd** +
+__optional__||string
+|===
+
+[[_smartmeter_organization]]
+**organization**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"Department"`|string
+|**objectId** +
+__optional__||string
+|===
+
+
+[[_swagger]]
+=== Swagger
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**definitions** +
+__optional__|Models|object
+|**paths** +
+__optional__|路径|object
+|===
+
+
+[[_testbed]]
+=== Testbed
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**createdAt** +
+__optional__||string
+|**desc** +
+__optional__||string
+|**name** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**relation** +
+__optional__||<<_testbed_relation,relation>>
+|**status** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|===
+
+[[_testbed_relation]]
+**relation**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Relation"`|string
+|**className** +
+__optional__|**Example** : `"Devices"`|string
+|===
+
+
+[[_role]]
+=== _Role
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**alias** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**desc** +
+__optional__||string
+|**name** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**roles** +
+__optional__||<<_role_roles,roles>>
+|**rules** +
+__optional__||<<_role_rules,rules>>
+|**updatedAt** +
+__optional__||string
+|**users** +
+__optional__||<<_role_users,users>>
+|===
+
+[[_role_roles]]
+**roles**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Relation"`|string
+|**className** +
+__optional__|**Example** : `"_Role"`|string
+|===
+
+[[_role_rules]]
+**rules**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Relation"`|string
+|**className** +
+__optional__|**Example** : `"Permission"`|string
+|===
+
+[[_role_users]]
+**users**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Relation"`|string
+|**className** +
+__optional__|**Example** : `"_User"`|string
+|===
+
+
+[[_session]]
+=== _Session
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**createdAt** +
+__optional__||string
+|**createdWith** +
+__optional__||object
+|**expiresAt** +
+__optional__||string
+|**installationId** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**restricted** +
+__optional__||boolean
+|**sessionToken** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|**user** +
+__optional__||<<_session_user,user>>
+|===
+
+[[_session_user]]
+**user**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"_User"`|string
+|**objectId** +
+__optional__||string
+|===
+
+
+[[_user]]
+=== _User
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**authData** +
+__optional__||object
+|**clientVersion** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**department** +
+__optional__||<<_user_department,department>>
+|**email** +
+__optional__||string
+|**emailVerified** +
+__optional__||boolean
+|**installationId** +
+__optional__||string
+|**javascriptKey** +
+__optional__||string
+|**nick** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**password** +
+__optional__||string
+|**phone** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|**username** +
+__optional__||string
+|===
+
+[[_user_department]]
+**department**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"Department"`|string
+|**objectId** +
+__optional__||string
+|===
+
+
+[[_add_vcon]]
+=== add_vcon
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**config** +
+__optional__|增加集中器|<<_add_vcon_config,config>>
+|===
+
+[[_add_vcon_config]]
+**config**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**channel_mod** +
+__optional__|主通道类型 1 :物理通道 \| 0 :虚拟通道|integer
+|**channel_type** +
+__optional__|通道类型 2:GPRS/CDMA \| 3:PSTN \| 4:Ethernet \| 6:RS232/RS485 \| 7:CSD \| 8:Radio|integer
+|**get_ip_mod** +
+__optional__|IP地址获取方式 1:自动设置 \| 0:手动设置|integer
+|**hb_interval** +
+__optional__|心跳间隔(s)|integer
+|**local_gateway** +
+__optional__|终端网关地址 +
+**Default** : `"172.016.023.255 "`|string
+|**local_ip** +
+__optional__|终端IP地址 +
+**Default** : `"127.0.0.1"`|string
+|**local_mask** +
+__optional__|终端子网掩码 +
+**Default** : `"255.255.000.001"`|string
+|**local_port** +
+__optional__|TCP监听端口|integer
+|**recall_interval** +
+__optional__|掉线重播间隔(s)|integer
+|**recall_times** +
+__optional__|掉线重播次数(次)|integer
+|**remote_ip** +
+__optional__|主站通讯地址 +
+**Default** : `"192.168.41.15 "`|string
+|**remote_port** +
+__optional__|主站端口号|integer
+|**tcp_or_udp** +
+__optional__|TCP/UDP标识 0 :TCP 方式 \| 1 :UDP 方式|integer
+|**vcaddr** +
+__optional__|集中器地址(偶数位)|string
+|===
+
+
+[[_addrs]]
+=== addrs
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**addrs** +
+__optional__|集中器地址列表|< string > array
+|===
+
+
+[[_change_time]]
+=== change_time
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**time** +
+__optional__|Unix时间戳|integer
+|**vcaddrs** +
+__optional__|集中器地址列表|< string > array
+|===
+
+
+[[_config]]
+=== config
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**channel_mod** +
+__optional__|主通道类型 1 :物理通道 \| 0 :虚拟通道|integer
+|**channel_type** +
+__optional__|通道类型 2:GPRS/CDMA \| 3:PSTN \| 4:Ethernet \| 6:RS232/RS485 \| 7:CSD \| 8:Radio|integer
+|**get_ip_mod** +
+__optional__|IP地址获取方式 1:自动设置 \| 0:手动设置|integer
+|**hb_interval** +
+__optional__|心跳间隔(s)|integer
+|**local_gateway** +
+__optional__|终端网关地址 +
+**Default** : `"172.016.023.255 "`|string
+|**local_ip** +
+__optional__|终端IP地址 +
+**Default** : `"127.0.0.1"`|string
+|**local_mask** +
+__optional__|终端子网掩码 +
+**Default** : `"255.255.000.001"`|string
+|**local_port** +
+__optional__|TCP监听端口|integer
+|**recall_interval** +
+__optional__|掉线重播间隔(s)|integer
+|**recall_times** +
+__optional__|掉线重播次数(次)|integer
+|**remote_ip** +
+__optional__|主站通讯地址 +
+**Default** : `"192.168.41.15 "`|string
+|**remote_port** +
+__optional__|主站端口号|integer
+|**tcp_or_udp** +
+__optional__|TCP/UDP标识 0 :TCP 方式 \| 1 :UDP 方式|integer
+|**vcaddr** +
+__optional__|集中器地址(偶数位)|string
+|===
+
+
+[[_connect]]
+=== connect
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**vcaddr** +
+__optional__|集中器地址|string
+|===
+
+
+[[_create_token]]
+=== create_Token
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**createdAt** +
+__optional__|创建时间|string
+|**sessionToken** +
+__optional__|新的token|string
+|===
+
+
+[[_create_success]]
+=== create_success
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**createdAt** +
+__optional__|创建时间|string (date-time)
+|**objectId** +
+__optional__|objectId|string
+|===
+
+
+[[_devaddr]]
+=== devaddr
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**devaddr** +
+__optional__|设备号|string
+|===
+
+
+[[_edit_vcon]]
+=== edit_vcon
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**config** +
+__optional__|修改集中器|<<_edit_vcon_config,config>>
+|**vcaddr** +
+__optional__|集中器地址(偶数位)|string
+|===
+
+[[_edit_vcon_config]]
+**config**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**channel_mod** +
+__optional__|主通道类型 1 :物理通道 \| 0 :虚拟通道|integer
+|**channel_type** +
+__optional__|通道类型 2:GPRS/CDMA \| 3:PSTN \| 4:Ethernet \| 6:RS232/RS485 \| 7:CSD \| 8:Radio|integer
+|**get_ip_mod** +
+__optional__|IP地址获取方式 1:自动设置 \| 0:手动设置|integer
+|**hb_interval** +
+__optional__|心跳间隔(s)|integer
+|**local_gateway** +
+__optional__|终端网关地址 +
+**Default** : `"172.016.023.255 "`|string
+|**local_ip** +
+__optional__|终端IP地址 +
+**Default** : `"127.0.0.1"`|string
+|**local_mask** +
+__optional__|终端子网掩码 +
+**Default** : `"255.255.000.001"`|string
+|**local_port** +
+__optional__|TCP监听端口|integer
+|**recall_interval** +
+__optional__|掉线重播间隔(s)|integer
+|**recall_times** +
+__optional__|掉线重播次数(次)|integer
+|**remote_ip** +
+__optional__|主站通讯地址 +
+**Default** : `"192.168.41.15 "`|string
+|**remote_port** +
+__optional__|主站端口号|integer
+|**tcp_or_udp** +
+__optional__|TCP/UDP标识 0 :TCP 方式 \| 1 :UDP 方式|integer
+|**vcaddr** +
+__optional__|集中器地址(偶数位)|string
+|===
+
+
+[[_error]]
+=== error
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**code** +
+__optional__|状态码|number
+|**error** +
+__optional__|错误提示|string
+|===
+
+
+[[_login_user]]
+=== login_User
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**password** +
+__optional__|用户密码|string
+|**phone** +
+__optional__|手机号|string
+|**username** +
+__optional__|用户名|string
+|===
+
+
+[[_reset_user]]
+=== reset_User
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**email** +
+__optional__|邮箱|string
+|===
+
+
+[[_smartdevhistory]]
+=== smartdevhistory
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**createdAt** +
+__optional__||string
+|**devaddr** +
+__optional__||string
+|**devtype** +
+__optional__||string
+|**hisdata** +
+__optional__||object
+|**objectId** +
+__optional__||string
+|**ts** +
+__optional__||number
+|**updatedAt** +
+__optional__||string
+|===
+
+
+[[_test]]
+=== test
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**msg** +
+__optional__|通信模块控制|string
+|===
+
+
+[[_update_success]]
+=== update_success
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**objectId** +
+__optional__|objectId|string
+|**updatedAt** +
+__optional__|更新时间|string (date-time)
+|===
+
+
+[[_yhmx]]
+=== yhmx
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**ACL** +
+__optional__|**Example** : `{
+  "*" : {
+    "read" : true,
+    "write" : false
+  }
+}`|object
+|**addr** +
+__optional__||string
+|**bddl** +
+__optional__||string
+|**btl** +
+__optional__||string
+|**building** +
+__optional__||string
+|**cbqd** +
+__optional__||string
+|**ccbh** +
+__optional__||string
+|**city** +
+__optional__||string
+|**createdAt** +
+__optional__||string
+|**cz** +
+__optional__||string
+|**dhpc** +
+__optional__||string
+|**eddy** +
+__optional__||string
+|**gddw** +
+__optional__||string
+|**jlbx** +
+__optional__||string
+|**jldbh** +
+__optional__||string
+|**jlddz** +
+__optional__||string
+|**jldwz** +
+__optional__||string
+|**jlfs** +
+__optional__||string
+|**jlzzfl** +
+__optional__||string
+|**linshi** +
+__optional__||string
+|**ljdz** +
+__optional__||string
+|**objectId** +
+__optional__||string
+|**organization** +
+__optional__||<<_yhmx_organization,organization>>
+|**pn** +
+__optional__||number
+|**prop** +
+__optional__||string
+|**province** +
+__optional__||string
+|**sblb** +
+__optional__||string
+|**sblx** +
+__optional__||string
+|**sccj** +
+__optional__||string
+|**scjyrq** +
+__optional__||string
+|**tq** +
+__optional__||string
+|**txfs** +
+__optional__||string
+|**tysj** +
+__optional__||string
+|**updatedAt** +
+__optional__||string
+|**vcaddr** +
+__optional__||string
+|**xgwzh** +
+__optional__||string
+|**xl** +
+__optional__||string
+|**xqdz** +
+__optional__||string
+|**xqmc** +
+__optional__||string
+|**yhabh** +
+__optional__||<<_yhmx_yhabh,yhabh>>
+|**yhdz** +
+__optional__||string
+|**yhlb** +
+__optional__||string
+|**yhmc** +
+__optional__||string
+|**zcbh** +
+__optional__||string
+|**zfbbz** +
+__optional__||string
+|**zhbl** +
+__optional__||string
+|**zqd** +
+__optional__||string
+|===
+
+[[_yhmx_organization]]
+**organization**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"Department"`|string
+|**objectId** +
+__optional__||string
+|===
+
+[[_yhmx_yhabh]]
+**yhabh**
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**__type** +
+__optional__|**Example** : `"Pointer"`|string
+|**className** +
+__optional__|**Example** : `"smartmeter"`|string
+|**objectId** +
+__optional__||string
+|===
+
+
+

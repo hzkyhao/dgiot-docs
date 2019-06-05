@@ -1,0 +1,7500 @@
+
+[[_paths]]
+== Paths
+
+[[_post_add_vcon]]
+=== 新增集中器
+....
+POST /add_vcon
+....
+
+
+==== Description
+新增集中器
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**config** +
+__required__|新增集中器|<<_add_vcon,add_vcon>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* Vconcentator
+
+[[_post_batch]]
+=== 批处理
+....
+POST /batch
+....
+
+
+==== Description
+为了减少网络往返的时间，可以使用批处理端点在一次调用中创建、更新或删除多达50个对象。
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**batch** +
+__required__|批处理|<<_batch,Batch>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns operation status|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* Batch
+
+
+[[_post_change_time]]
+=== 校时集中器
+....
+POST /change_time
+....
+
+
+==== Description
+校时集中器
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|校时集中器|<<_change_time,change_time>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* Vconcentator
+
+
+[[_post_classes_api]]
+=== 新增Api记录
+....
+POST /classes/Api
+....
+
+
+==== Description
+新增一条Api记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_api,Api>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Api
+
+
+[[_get_classes_api]]
+=== 查询Api数据
+....
+GET /classes/Api
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Api记录数|<<_get_classes_api_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_api_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_api,Api>> > array
+|===
+
+
+==== Tags
+
+* Api
+
+
+[[_get_classes_api_id]]
+=== 通过ID获取Api
+....
+GET /classes/Api/{id}
+....
+
+
+==== Description
+通过ID获取Api
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Api|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Api数据|<<_api,Api>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Api
+
+
+[[_put_classes_api_id]]
+=== 通过ID更新Api
+....
+PUT /classes/Api/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_api,Api>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Api
+
+
+[[_delete_classes_api_id]]
+=== 通过ID删除Api
+....
+DELETE /classes/Api/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Api
+
+
+[[_post_classes_app]]
+=== 新增App记录
+....
+POST /classes/App
+....
+
+
+==== Description
+新增一条App记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_app,App>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* App
+
+
+[[_get_classes_app]]
+=== 查询App数据
+....
+GET /classes/App
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回App记录数|<<_get_classes_app_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_app_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_app,App>> > array
+|===
+
+
+==== Tags
+
+* App
+
+
+[[_get_classes_app_id]]
+=== 通过ID获取App
+....
+GET /classes/App/{id}
+....
+
+
+==== Description
+通过ID获取App
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取App|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回App数据|<<_app,App>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* App
+
+
+[[_put_classes_app_id]]
+=== 通过ID更新App
+....
+PUT /classes/App/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_app,App>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* App
+
+
+[[_delete_classes_app_id]]
+=== 通过ID删除App
+....
+DELETE /classes/App/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* App
+
+
+[[_post_classes_cloudfile]]
+=== 新增CloudFile记录
+....
+POST /classes/CloudFile
+....
+
+
+==== Description
+新增一条CloudFile记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_cloudfile,CloudFile>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* CloudFile
+
+
+[[_get_classes_cloudfile]]
+=== 查询CloudFile数据
+....
+GET /classes/CloudFile
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回CloudFile记录数|<<_get_classes_cloudfile_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_cloudfile_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_cloudfile,CloudFile>> > array
+|===
+
+
+==== Tags
+
+* CloudFile
+
+
+[[_get_classes_cloudfile_id]]
+=== 通过ID获取CloudFile
+....
+GET /classes/CloudFile/{id}
+....
+
+
+==== Description
+通过ID获取CloudFile
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取CloudFile|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回CloudFile数据|<<_cloudfile,CloudFile>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* CloudFile
+
+
+[[_put_classes_cloudfile_id]]
+=== 通过ID更新CloudFile
+....
+PUT /classes/CloudFile/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_cloudfile,CloudFile>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* CloudFile
+
+
+[[_delete_classes_cloudfile_id]]
+=== 通过ID删除CloudFile
+....
+DELETE /classes/CloudFile/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* CloudFile
+
+
+[[_post_classes_dataitem]]
+=== 新增DataItem记录
+....
+POST /classes/DataItem
+....
+
+
+==== Description
+新增一条DataItem记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_dataitem,DataItem>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* DataItem
+
+
+[[_get_classes_dataitem]]
+=== 查询DataItem数据
+....
+GET /classes/DataItem
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回DataItem记录数|<<_get_classes_dataitem_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_dataitem_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_dataitem,DataItem>> > array
+|===
+
+
+==== Tags
+
+* DataItem
+
+
+[[_get_classes_dataitem_id]]
+=== 通过ID获取DataItem
+....
+GET /classes/DataItem/{id}
+....
+
+
+==== Description
+通过ID获取DataItem
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取DataItem|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回DataItem数据|<<_dataitem,DataItem>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* DataItem
+
+
+[[_put_classes_dataitem_id]]
+=== 通过ID更新DataItem
+....
+PUT /classes/DataItem/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_dataitem,DataItem>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* DataItem
+
+
+[[_delete_classes_dataitem_id]]
+=== 通过ID删除DataItem
+....
+DELETE /classes/DataItem/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* DataItem
+
+
+[[_post_classes_datas]]
+=== 新增Datas记录
+....
+POST /classes/Datas
+....
+
+
+==== Description
+新增一条Datas记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_datas,Datas>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Datas
+
+
+[[_get_classes_datas]]
+=== 查询Datas数据
+....
+GET /classes/Datas
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Datas记录数|<<_get_classes_datas_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_datas_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_datas,Datas>> > array
+|===
+
+
+==== Tags
+
+* Datas
+
+
+[[_get_classes_datas_id]]
+=== 通过ID获取Datas
+....
+GET /classes/Datas/{id}
+....
+
+
+==== Description
+通过ID获取Datas
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Datas|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Datas数据|<<_datas,Datas>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Datas
+
+
+[[_put_classes_datas_id]]
+=== 通过ID更新Datas
+....
+PUT /classes/Datas/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_datas,Datas>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Datas
+
+
+[[_delete_classes_datas_id]]
+=== 通过ID删除Datas
+....
+DELETE /classes/Datas/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Datas
+
+
+[[_post_classes_department]]
+=== 新增Department记录
+....
+POST /classes/Department
+....
+
+
+==== Description
+新增一条Department记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_department,Department>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Department
+
+
+[[_get_classes_department]]
+=== 查询Department数据
+....
+GET /classes/Department
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Department记录数|<<_get_classes_department_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_department_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_department,Department>> > array
+|===
+
+
+==== Tags
+
+* Department
+
+
+[[_get_classes_department_id]]
+=== 通过ID获取Department
+....
+GET /classes/Department/{id}
+....
+
+
+==== Description
+通过ID获取Department
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Department|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Department数据|<<_department,Department>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Department
+
+
+[[_put_classes_department_id]]
+=== 通过ID更新Department
+....
+PUT /classes/Department/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_department,Department>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Department
+
+
+[[_delete_classes_department_id]]
+=== 通过ID删除Department
+....
+DELETE /classes/Department/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Department
+
+
+[[_post_classes_devices]]
+=== 新增Devices记录
+....
+POST /classes/Devices
+....
+
+
+==== Description
+新增一条Devices记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_devices,Devices>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Devices
+
+
+[[_get_classes_devices]]
+=== 查询Devices数据
+....
+GET /classes/Devices
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Devices记录数|<<_get_classes_devices_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_devices_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_devices,Devices>> > array
+|===
+
+
+==== Tags
+
+* Devices
+
+
+[[_get_classes_devices_id]]
+=== 通过ID获取Devices
+....
+GET /classes/Devices/{id}
+....
+
+
+==== Description
+通过ID获取Devices
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Devices|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Devices数据|<<_devices,Devices>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Devices
+
+
+[[_put_classes_devices_id]]
+=== 通过ID更新Devices
+....
+PUT /classes/Devices/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_devices,Devices>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Devices
+
+
+[[_delete_classes_devices_id]]
+=== 通过ID删除Devices
+....
+DELETE /classes/Devices/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Devices
+
+
+[[_post_classes_dtu]]
+=== 新增Dtu记录
+....
+POST /classes/Dtu
+....
+
+
+==== Description
+新增一条Dtu记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_dtu,Dtu>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Dtu
+
+
+[[_get_classes_dtu]]
+=== 查询Dtu数据
+....
+GET /classes/Dtu
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Dtu记录数|<<_get_classes_dtu_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_dtu_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_dtu,Dtu>> > array
+|===
+
+
+==== Tags
+
+* Dtu
+
+
+[[_get_classes_dtu_id]]
+=== 通过ID获取Dtu
+....
+GET /classes/Dtu/{id}
+....
+
+
+==== Description
+通过ID获取Dtu
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Dtu|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Dtu数据|<<_dtu,Dtu>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Dtu
+
+
+[[_put_classes_dtu_id]]
+=== 通过ID更新Dtu
+....
+PUT /classes/Dtu/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_dtu,Dtu>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Dtu
+
+
+[[_delete_classes_dtu_id]]
+=== 通过ID删除Dtu
+....
+DELETE /classes/Dtu/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Dtu
+
+
+[[_post_classes_log]]
+=== 新增Log记录
+....
+POST /classes/Log
+....
+
+
+==== Description
+新增一条Log记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_log,Log>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Log
+
+
+[[_get_classes_log]]
+=== 查询Log数据
+....
+GET /classes/Log
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Log记录数|<<_get_classes_log_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_log_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_log,Log>> > array
+|===
+
+
+==== Tags
+
+* Log
+
+
+[[_get_classes_log_id]]
+=== 通过ID获取Log
+....
+GET /classes/Log/{id}
+....
+
+
+==== Description
+通过ID获取Log
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Log|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Log数据|<<_log,Log>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Log
+
+
+[[_put_classes_log_id]]
+=== 通过ID更新Log
+....
+PUT /classes/Log/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_log,Log>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Log
+
+
+[[_delete_classes_log_id]]
+=== 通过ID删除Log
+....
+DELETE /classes/Log/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Log
+
+
+[[_post_classes_mainstationindex]]
+=== 新增MainStationIndex记录
+....
+POST /classes/MainStationIndex
+....
+
+
+==== Description
+新增一条MainStationIndex记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_mainstationindex,MainStationIndex>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* MainStationIndex
+
+
+[[_get_classes_mainstationindex]]
+=== 查询MainStationIndex数据
+....
+GET /classes/MainStationIndex
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回MainStationIndex记录数|<<_get_classes_mainstationindex_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_mainstationindex_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_mainstationindex,MainStationIndex>> > array
+|===
+
+
+==== Tags
+
+* MainStationIndex
+
+
+[[_get_classes_mainstationindex_id]]
+=== 通过ID获取MainStationIndex
+....
+GET /classes/MainStationIndex/{id}
+....
+
+
+==== Description
+通过ID获取MainStationIndex
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取MainStationIndex|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回MainStationIndex数据|<<_mainstationindex,MainStationIndex>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* MainStationIndex
+
+
+[[_put_classes_mainstationindex_id]]
+=== 通过ID更新MainStationIndex
+....
+PUT /classes/MainStationIndex/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_mainstationindex,MainStationIndex>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* MainStationIndex
+
+
+[[_delete_classes_mainstationindex_id]]
+=== 通过ID删除MainStationIndex
+....
+DELETE /classes/MainStationIndex/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* MainStationIndex
+
+
+[[_post_classes_menu]]
+=== 新增Menu记录
+....
+POST /classes/Menu
+....
+
+
+==== Description
+新增一条Menu记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_menu,Menu>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Menu
+
+
+[[_get_classes_menu]]
+=== 查询Menu数据
+....
+GET /classes/Menu
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Menu记录数|<<_get_classes_menu_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_menu_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_menu,Menu>> > array
+|===
+
+
+==== Tags
+
+* Menu
+
+
+[[_get_classes_menu_id]]
+=== 通过ID获取Menu
+....
+GET /classes/Menu/{id}
+....
+
+
+==== Description
+通过ID获取Menu
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Menu|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Menu数据|<<_menu,Menu>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Menu
+
+
+[[_put_classes_menu_id]]
+=== 通过ID更新Menu
+....
+PUT /classes/Menu/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_menu,Menu>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Menu
+
+
+[[_delete_classes_menu_id]]
+=== 通过ID删除Menu
+....
+DELETE /classes/Menu/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Menu
+
+
+[[_post_classes_notification]]
+=== 新增Notification记录
+....
+POST /classes/Notification
+....
+
+
+==== Description
+新增一条Notification记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_notification,Notification>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Notification
+
+
+[[_get_classes_notification]]
+=== 查询Notification数据
+....
+GET /classes/Notification
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Notification记录数|<<_get_classes_notification_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_notification_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_notification,Notification>> > array
+|===
+
+
+==== Tags
+
+* Notification
+
+
+[[_get_classes_notification_id]]
+=== 通过ID获取Notification
+....
+GET /classes/Notification/{id}
+....
+
+
+==== Description
+通过ID获取Notification
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Notification|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Notification数据|<<_notification,Notification>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Notification
+
+
+[[_put_classes_notification_id]]
+=== 通过ID更新Notification
+....
+PUT /classes/Notification/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_notification,Notification>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Notification
+
+
+[[_delete_classes_notification_id]]
+=== 通过ID删除Notification
+....
+DELETE /classes/Notification/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Notification
+
+
+[[_post_classes_permission]]
+=== 新增Permission记录
+....
+POST /classes/Permission
+....
+
+
+==== Description
+新增一条Permission记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_permission,Permission>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Permission
+
+
+[[_get_classes_permission]]
+=== 查询Permission数据
+....
+GET /classes/Permission
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Permission记录数|<<_get_classes_permission_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_permission_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_permission,Permission>> > array
+|===
+
+
+==== Tags
+
+* Permission
+
+
+[[_get_classes_permission_id]]
+=== 通过ID获取Permission
+....
+GET /classes/Permission/{id}
+....
+
+
+==== Description
+通过ID获取Permission
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Permission|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Permission数据|<<_permission,Permission>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Permission
+
+
+[[_put_classes_permission_id]]
+=== 通过ID更新Permission
+....
+PUT /classes/Permission/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_permission,Permission>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Permission
+
+
+[[_delete_classes_permission_id]]
+=== 通过ID删除Permission
+....
+DELETE /classes/Permission/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Permission
+
+
+[[_post_classes_pumpdata]]
+=== 新增PumpData记录
+....
+POST /classes/PumpData
+....
+
+
+==== Description
+新增一条PumpData记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_pumpdata,PumpData>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* PumpData
+
+
+[[_get_classes_pumpdata]]
+=== 查询PumpData数据
+....
+GET /classes/PumpData
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回PumpData记录数|<<_get_classes_pumpdata_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_pumpdata_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_pumpdata,PumpData>> > array
+|===
+
+
+==== Tags
+
+* PumpData
+
+
+[[_get_classes_pumpdata_id]]
+=== 通过ID获取PumpData
+....
+GET /classes/PumpData/{id}
+....
+
+
+==== Description
+通过ID获取PumpData
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取PumpData|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回PumpData数据|<<_pumpdata,PumpData>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* PumpData
+
+
+[[_put_classes_pumpdata_id]]
+=== 通过ID更新PumpData
+....
+PUT /classes/PumpData/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_pumpdata,PumpData>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* PumpData
+
+
+[[_delete_classes_pumpdata_id]]
+=== 通过ID删除PumpData
+....
+DELETE /classes/PumpData/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* PumpData
+
+
+[[_post_classes_report]]
+=== 新增Report记录
+....
+POST /classes/Report
+....
+
+
+==== Description
+新增一条Report记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_report,Report>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Report
+
+
+[[_get_classes_report]]
+=== 查询Report数据
+....
+GET /classes/Report
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Report记录数|<<_get_classes_report_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_report_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_report,Report>> > array
+|===
+
+
+==== Tags
+
+* Report
+
+
+[[_get_classes_report_id]]
+=== 通过ID获取Report
+....
+GET /classes/Report/{id}
+....
+
+
+==== Description
+通过ID获取Report
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Report|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Report数据|<<_report,Report>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Report
+
+
+[[_put_classes_report_id]]
+=== 通过ID更新Report
+....
+PUT /classes/Report/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_report,Report>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Report
+
+
+[[_delete_classes_report_id]]
+=== 通过ID删除Report
+....
+DELETE /classes/Report/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Report
+
+
+[[_post_classes_smartmeter]]
+=== 新增Smartmeter记录
+....
+POST /classes/Smartmeter
+....
+
+
+==== Description
+新增一条Smartmeter记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_smartmeter,Smartmeter>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Smartmeter
+
+
+[[_get_classes_smartmeter]]
+=== 查询Smartmeter数据
+....
+GET /classes/Smartmeter
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Smartmeter记录数|<<_get_classes_smartmeter_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_smartmeter_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_smartmeter,Smartmeter>> > array
+|===
+
+
+==== Tags
+
+* Smartmeter
+
+
+[[_get_classes_smartmeter_id]]
+=== 通过ID获取Smartmeter
+....
+GET /classes/Smartmeter/{id}
+....
+
+
+==== Description
+通过ID获取Smartmeter
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Smartmeter|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Smartmeter数据|<<_smartmeter,Smartmeter>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Smartmeter
+
+
+[[_put_classes_smartmeter_id]]
+=== 通过ID更新Smartmeter
+....
+PUT /classes/Smartmeter/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_smartmeter,Smartmeter>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Smartmeter
+
+
+[[_delete_classes_smartmeter_id]]
+=== 通过ID删除Smartmeter
+....
+DELETE /classes/Smartmeter/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Smartmeter
+
+
+[[_post_classes_testbed]]
+=== 新增Testbed记录
+....
+POST /classes/Testbed
+....
+
+
+==== Description
+新增一条Testbed记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_testbed,Testbed>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Testbed
+
+
+[[_get_classes_testbed]]
+=== 查询Testbed数据
+....
+GET /classes/Testbed
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Testbed记录数|<<_get_classes_testbed_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_testbed_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_testbed,Testbed>> > array
+|===
+
+
+==== Tags
+
+* Testbed
+
+
+[[_get_classes_testbed_id]]
+=== 通过ID获取Testbed
+....
+GET /classes/Testbed/{id}
+....
+
+
+==== Description
+通过ID获取Testbed
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取Testbed|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回Testbed数据|<<_testbed,Testbed>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Testbed
+
+
+[[_put_classes_testbed_id]]
+=== 通过ID更新Testbed
+....
+PUT /classes/Testbed/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_testbed,Testbed>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Testbed
+
+
+[[_delete_classes_testbed_id]]
+=== 通过ID删除Testbed
+....
+DELETE /classes/Testbed/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Testbed
+
+
+[[_post_classes_role]]
+=== 新增_Role记录
+....
+POST /classes/_Role
+....
+
+
+==== Description
+新增一条_Role记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_role,_Role>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Role
+
+
+[[_get_classes_role]]
+=== 查询_Role数据
+....
+GET /classes/_Role
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回_Role记录数|<<_get_classes_role_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_role_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_role,_Role>> > array
+|===
+
+
+==== Tags
+
+* _Role
+
+
+[[_get_classes_role_id]]
+=== 通过ID获取_Role
+....
+GET /classes/_Role/{id}
+....
+
+
+==== Description
+通过ID获取_Role
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取_Role|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回_Role数据|<<_role,_Role>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Role
+
+
+[[_put_classes_role_id]]
+=== 通过ID更新_Role
+....
+PUT /classes/_Role/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_role,_Role>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Role
+
+
+[[_delete_classes_role_id]]
+=== 通过ID删除_Role
+....
+DELETE /classes/_Role/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Role
+
+
+[[_post_classes_session]]
+=== 新增_Session记录
+....
+POST /classes/_Session
+....
+
+
+==== Description
+新增一条_Session记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_session,_Session>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Session
+
+
+[[_get_classes_session]]
+=== 查询_Session数据
+....
+GET /classes/_Session
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回_Session记录数|<<_get_classes_session_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_session_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_session,_Session>> > array
+|===
+
+
+==== Tags
+
+* _Session
+
+
+[[_get_classes_session_id]]
+=== 通过ID获取_Session
+....
+GET /classes/_Session/{id}
+....
+
+
+==== Description
+通过ID获取_Session
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取_Session|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回_Session数据|<<_session,_Session>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Session
+
+
+[[_put_classes_session_id]]
+=== 通过ID更新_Session
+....
+PUT /classes/_Session/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_session,_Session>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Session
+
+
+[[_delete_classes_session_id]]
+=== 通过ID删除_Session
+....
+DELETE /classes/_Session/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Session
+
+
+[[_post_classes_user]]
+=== 新增_User记录
+....
+POST /classes/_User
+....
+
+
+==== Description
+新增一条_User记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_user,_User>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _User
+
+
+[[_get_classes_user]]
+=== 查询_User数据
+....
+GET /classes/_User
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回_User记录数|<<_get_classes_user_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_user_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_user,_User>> > array
+|===
+
+
+==== Tags
+
+* _User
+
+
+[[_get_classes_user_id]]
+=== 通过ID获取_User
+....
+GET /classes/_User/{id}
+....
+
+
+==== Description
+通过ID获取_User
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取_User|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回_User数据|<<_user,_User>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _User
+
+
+[[_put_classes_user_id]]
+=== 通过ID更新_User
+....
+PUT /classes/_User/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_user,_User>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _User
+
+
+[[_delete_classes_user_id]]
+=== 通过ID删除_User
+....
+DELETE /classes/_User/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _User
+
+
+[[_post_classes_smartdevhistory]]
+=== 新增smartdevhistory记录
+....
+POST /classes/smartdevhistory
+....
+
+
+==== Description
+新增一条smartdevhistory记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_smartdevhistory,smartdevhistory>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* smartdevhistory
+
+
+[[_get_classes_smartdevhistory]]
+=== 查询smartdevhistory数据
+....
+GET /classes/smartdevhistory
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回smartdevhistory记录数|<<_get_classes_smartdevhistory_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_smartdevhistory_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_smartdevhistory,smartdevhistory>> > array
+|===
+
+
+==== Tags
+
+* smartdevhistory
+
+
+[[_get_classes_smartdevhistory_id]]
+=== 通过ID获取smartdevhistory
+....
+GET /classes/smartdevhistory/{id}
+....
+
+
+==== Description
+通过ID获取smartdevhistory
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取smartdevhistory|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回smartdevhistory数据|<<_smartdevhistory,smartdevhistory>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* smartdevhistory
+
+
+[[_put_classes_smartdevhistory_id]]
+=== 通过ID更新smartdevhistory
+....
+PUT /classes/smartdevhistory/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_smartdevhistory,smartdevhistory>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* smartdevhistory
+
+
+[[_delete_classes_smartdevhistory_id]]
+=== 通过ID删除smartdevhistory
+....
+DELETE /classes/smartdevhistory/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* smartdevhistory
+
+
+[[_post_classes_yhmx]]
+=== 新增yhmx记录
+....
+POST /classes/yhmx
+....
+
+
+==== Description
+新增一条yhmx记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|新增的字段|<<_yhmx,yhmx>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns success|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* yhmx
+
+
+[[_get_classes_yhmx]]
+=== 查询yhmx数据
+....
+GET /classes/yhmx
+....
+
+
+==== Description
+参考parse文档 https://docs.parseplatform.org/rest/guide/#queries,<br/><br/>where支持：[$lt, $lte, $gt, $gte, $ne, $in, $nin, $exists, $select, $dontSelect, $all, $regex, $text]
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**include** +
+__optional__|include|string|
+|**Query**|**keys** +
+__optional__|需要显示的字段,加count(*)则结果里面会显示总记录数, eg: username,email|string|
+|**Query**|**limit** +
+__optional__|limit, 显示多少条记录，显示100条记录 eg:100|integer|`10`
+|**Query**|**order** +
+__optional__|排序方式, 负为降序, eg: score,-name|string|`"createdAt"`
+|**Query**|**skip** +
+__optional__|skip|integer|`0`
+|**Query**|**where** +
+__optional__|过滤条件，eg: {"objectId":{"$in":["BGS3BFgcZN"]}}|string|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回yhmx记录数|<<_get_classes_yhmx_response_200,Response 200>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+[[_get_classes_yhmx_response_200]]
+**Response 200**
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**results** +
+__optional__|< <<_yhmx,yhmx>> > array
+|===
+
+
+==== Tags
+
+* yhmx
+
+
+[[_get_classes_yhmx_id]]
+=== 通过ID获取yhmx
+....
+GET /classes/yhmx/{id}
+....
+
+
+==== Description
+通过ID获取yhmx
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|通过ID获取yhmx|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|返回yhmx数据|<<_yhmx,yhmx>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* yhmx
+
+
+[[_put_classes_yhmx_id]]
+=== 通过ID更新yhmx
+....
+PUT /classes/yhmx/{id}
+....
+
+
+==== Description
+通过ID更新记录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|更新记录的ID|string
+|**Body**|**body** +
+__required__|数据更新的内容.|<<_yhmx,yhmx>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|更新成功|<<_update_success,update_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* yhmx
+
+
+[[_delete_classes_yhmx_id]]
+=== 通过ID删除yhmx
+....
+DELETE /classes/yhmx/{id}
+....
+
+
+==== Description
+通过ID删除数据
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|删除记录的ID|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns a confirmation message|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|<<_error,error>>
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* yhmx
+
+
+[[_get_config]]
+=== 获取配置
+....
+GET /config
+....
+
+
+==== Description
+获取配置
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns operation status|<<_config,Config>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* Config
+
+
+[[_put_config]]
+=== 更新配置
+....
+PUT /config
+....
+
+
+==== Description
+更新配置，如果配置值为 "*op": "Delete"，则为删除, 例： {"params":{"test":{"*op":"Delete"}}}
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**config** +
+__required__|更新配置|<<_config,Config>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns operation status|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* Config
+
+
+[[_get_data_source]]
+=== 查询设备列表
+....
+GET /data_source
+....
+
+
+==== Description
+查询设备列表(集中器,通信模块,电表)
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**key** +
+__required__|设备 通信模块或电表 :devs \| 集中器:vcons|enum (devs, vcons)
+|**Query**|**length** +
+__optional__|从起始开始查找几条|string
+|**Query**|**search[regex]** +
+__optional__|模糊条件查找|string
+|**Query**|**start** +
+__optional__|起始行数|string
+|**Query**|**type** +
+__required__|设备类型 集中器或电表:DLT645\|通信模块:VMOTE|enum (DLT645, MSC, VMOTE)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* Devices
+
+
+[[_get_device]]
+=== 设备查询
+....
+GET /device
+....
+
+
+==== Description
+设备查询
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**devaddr** +
+__required__|设备地址|string
+|**Query**|**type** +
+__required__|设备类型 meter:电表 \| dtu:数据传输单元 \|pump:水泵数据传输单元|enum (meter, dtu, pump)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* Devices
+
+
+[[_put_dtu_research]]
+=== 重新搜表
+....
+PUT /dtu/research
+....
+
+
+==== Description
+重新搜表
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**devaddr** +
+__required__|设备号|<<_devaddr,devaddr>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* Dtu
+
+
+[[_post_edit_vcon]]
+=== 修改集中器
+....
+POST /edit_vcon
+....
+
+
+==== Description
+修改集中器
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**edit_vcon** +
+__required__|修改集中器|<<_edit_vcon,edit_vcon>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* Vconcentator
+
+
+[[_post_files_filename]]
+=== 文件上传
+....
+POST /files/{filename}
+....
+
+
+==== Description
+要将文件上传，请向文件URL发送POST请求，后缀为文件名。请求必须包含与Content-Type文件关联的标头。请记住，文件限制为10兆字节。
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**content-type** +
+__required__|Content-Type文件关联的标头, text/plain|string
+|**Path**|**filename** +
+__required__|要上载的文件的文件名。|string
+|**Body**|**Content** +
+__required__||<<_file,File>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns operation status|<<_create_success,create_success>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Consumes
+
+* `\*`
+
+
+==== Tags
+
+* Files
+
+
+[[_post_functions_func]]
+=== 云函数
+....
+POST /functions/{func}
+....
+
+
+==== Description
+云函数
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Path**|**func** +
+__required__|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns operation status|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* Functions
+
+
+[[_generate_code]]
+=== 根据swagger产生代码
+....
+POST /generate_code/{type}
+....
+
+
+==== Description
+根据swagger产生代码
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**type** +
+__required__|编译出对应的代码模块|enum (erlang)
+|**Query**|**mod** +
+__required__|模块名|string
+|**Body**|**swagger** +
+__required__|swagger描述|<<_swagger,Swagger>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns operation status|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* System
+
+
+[[_get_token]]
+=== 刷新token
+....
+GET /get_token
+....
+
+
+==== Description
+刷新token
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**appid** +
+__required__|管理后台分配appid|string
+|**Query**|**secret** +
+__required__|管理后台配置|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns operation status|<<_create_token,create_Token>>
+|**400**|Bad Request|No Content
+|**404**|object not found|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* Users
+
+
+[[_get_log_level]]
+=== 获取日志配置
+....
+GET /log/level
+....
+
+
+==== Description
+获取日志配置
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**Handle** +
+__required__|日志模块|string
+|**Query**|**level** +
+__required__|日志级别|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns operation status|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* System
+
+
+[[_put_log_level]]
+=== 更新日志配置
+....
+PUT /log/level
+....
+
+
+==== Description
+更新日志配置
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**Handle** +
+__required__|日志模块|string
+|**Query**|**level** +
+__required__|日志级别|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns operation status|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* System
+
+
+[[_get_login]]
+=== 用户登录
+....
+GET /login
+....
+
+
+==== Description
+用户登录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Query**|**password** +
+__required__|string
+|**Query**|**username** +
+__required__|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns operation status|<<_user,_User>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* Users
+
+
+[[_post_logout]]
+=== 退出登录
+....
+POST /logout
+....
+
+
+==== Description
+退出登录
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Header**|**sessionToken** +
+__required__|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns operation status|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Consumes
+
+* `\*`
+
+
+==== Tags
+
+* Users
+
+
+[[_get_lora_control]]
+=== LORA模块管理
+....
+GET /lora/control
+....
+
+
+==== Description
+LORA模块控制
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**act** +
+__required__|控制行为 重启:restart\|搜表:search_meter\|删除注册,重启搜表:research_meter\|读取设备信息:get_info|enum (restart, search_meter, research_meter, get_info)
+|**Query**|**appeui** +
+__required__|appeui|string
+|**Query**|**cmd** +
+__required__|下发指令 控制行为 重启:0000\|搜表:0001\|删除注册,重启搜表:0002\|读取设备信息:0002|enum (0000, 0001, 0002)
+|**Query**|**deveui** +
+__required__|设备号|string
+|**Query**|**fport** +
+__required__|设备控制协议号 控制行为 重启:9\|搜表:9\|删除注册,重启搜表:9\|读取设备信息:8|enum (8, 9)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* LoRa
+
+
+[[_get_lora_info]]
+=== lora通信模块参数
+....
+GET /lora/info
+....
+
+
+==== Description
+查询lora通信模块参数
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**deveui** +
+__required__|lora设备号|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* LoRa
+
+
+[[_put_permission_api]]
+=== 设置Api表级别
+....
+PUT /permission/Api
+....
+
+
+==== Description
+设置Api表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Api表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Api
+
+
+[[_put_permission_app]]
+=== 设置App表级别
+....
+PUT /permission/App
+....
+
+
+==== Description
+设置App表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置App表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* App
+
+
+[[_put_permission_cloudfile]]
+=== 设置CloudFile表级别
+....
+PUT /permission/CloudFile
+....
+
+
+==== Description
+设置CloudFile表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置CloudFile表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* CloudFile
+
+
+[[_put_permission_dataitem]]
+=== 设置DataItem表级别
+....
+PUT /permission/DataItem
+....
+
+
+==== Description
+设置DataItem表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置DataItem表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* DataItem
+
+
+[[_put_permission_datas]]
+=== 设置Datas表级别
+....
+PUT /permission/Datas
+....
+
+
+==== Description
+设置Datas表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Datas表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Datas
+
+
+[[_put_permission_department]]
+=== 设置Department表级别
+....
+PUT /permission/Department
+....
+
+
+==== Description
+设置Department表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Department表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Department
+
+
+[[_put_permission_devices]]
+=== 设置Devices表级别
+....
+PUT /permission/Devices
+....
+
+
+==== Description
+设置Devices表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Devices表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Devices
+
+
+[[_put_permission_dtu]]
+=== 设置Dtu表级别
+....
+PUT /permission/Dtu
+....
+
+
+==== Description
+设置Dtu表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Dtu表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Dtu
+
+
+[[_put_permission_log]]
+=== 设置Log表级别
+....
+PUT /permission/Log
+....
+
+
+==== Description
+设置Log表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Log表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Log
+
+
+[[_put_permission_mainstationindex]]
+=== 设置MainStationIndex表级别
+....
+PUT /permission/MainStationIndex
+....
+
+
+==== Description
+设置MainStationIndex表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置MainStationIndex表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* MainStationIndex
+
+
+[[_put_permission_menu]]
+=== 设置Menu表级别
+....
+PUT /permission/Menu
+....
+
+
+==== Description
+设置Menu表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Menu表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Menu
+
+
+[[_put_permission_notification]]
+=== 设置Notification表级别
+....
+PUT /permission/Notification
+....
+
+
+==== Description
+设置Notification表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Notification表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Notification
+
+
+[[_put_permission_permission]]
+=== 设置Permission表级别
+....
+PUT /permission/Permission
+....
+
+
+==== Description
+设置Permission表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Permission表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Permission
+
+
+[[_put_permission_pumpdata]]
+=== 设置PumpData表级别
+....
+PUT /permission/PumpData
+....
+
+
+==== Description
+设置PumpData表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置PumpData表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* PumpData
+
+
+[[_put_permission_report]]
+=== 设置Report表级别
+....
+PUT /permission/Report
+....
+
+
+==== Description
+设置Report表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Report表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Report
+
+
+[[_put_permission_smartmeter]]
+=== 设置Smartmeter表级别
+....
+PUT /permission/Smartmeter
+....
+
+
+==== Description
+设置Smartmeter表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Smartmeter表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Smartmeter
+
+
+[[_put_permission_testbed]]
+=== 设置Testbed表级别
+....
+PUT /permission/Testbed
+....
+
+
+==== Description
+设置Testbed表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置Testbed表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Testbed
+
+
+[[_put_permission_role]]
+=== 设置_Role表级别
+....
+PUT /permission/_Role
+....
+
+
+==== Description
+设置_Role表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置_Role表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Role
+
+
+[[_put_permission_session]]
+=== 设置_Session表级别
+....
+PUT /permission/_Session
+....
+
+
+==== Description
+设置_Session表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置_Session表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Session
+
+
+[[_put_permission_user]]
+=== 设置_User表级别
+....
+PUT /permission/_User
+....
+
+
+==== Description
+设置_User表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置_User表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _User
+
+
+[[_put_permission_smartdevhistory]]
+=== 设置smartdevhistory表级别
+....
+PUT /permission/smartdevhistory
+....
+
+
+==== Description
+设置smartdevhistory表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置smartdevhistory表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* smartdevhistory
+
+
+[[_put_permission_yhmx]]
+=== 设置yhmx表级别
+....
+PUT /permission/yhmx
+....
+
+
+==== Description
+设置yhmx表级别
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**Permissions** +
+__required__|表操作权限.|<<_permissions,Permissions>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|设置yhmx表级别成功|No Content
+|**400**|object not found|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* yhmx
+
+
+[[_get_plugin]]
+=== 获取插件
+....
+GET /plugin
+....
+
+
+==== Description
+获取插件
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns operation status|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* System
+
+
+[[_post_plugin_app]]
+=== 对插件操作
+....
+POST /plugin/{App}
+....
+
+
+==== Description
+对插件操作, start, stop, reload
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**App** +
+__required__|插件名|string
+|**Query**|**Action** +
+__required__|start, stop, reload|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns operation status|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Consumes
+
+* `\*`
+
+
+==== Tags
+
+* System
+
+
+[[_post_requestpasswordreset]]
+=== 重置密码
+....
+POST /requestPasswordReset
+....
+
+
+==== Description
+重置密码
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**email** +
+__required__|帐号绑定的邮箱|<<_reset_user,reset_User>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns operation status|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* Users
+
+
+[[_get_schema_api]]
+=== 获取表Api的权限级别和结构
+....
+GET /schema/Api
+....
+
+
+==== Description
+获取表Api的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Api
+
+
+[[_get_schema_app]]
+=== 获取表App的权限级别和结构
+....
+GET /schema/App
+....
+
+
+==== Description
+获取表App的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* App
+
+
+[[_get_schema_cloudfile]]
+=== 获取表CloudFile的权限级别和结构
+....
+GET /schema/CloudFile
+....
+
+
+==== Description
+获取表CloudFile的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* CloudFile
+
+
+[[_get_schema_dataitem]]
+=== 获取表DataItem的权限级别和结构
+....
+GET /schema/DataItem
+....
+
+
+==== Description
+获取表DataItem的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* DataItem
+
+
+[[_get_schema_datas]]
+=== 获取表Datas的权限级别和结构
+....
+GET /schema/Datas
+....
+
+
+==== Description
+获取表Datas的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Datas
+
+
+[[_get_schema_department]]
+=== 获取表Department的权限级别和结构
+....
+GET /schema/Department
+....
+
+
+==== Description
+获取表Department的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Department
+
+
+[[_get_schema_devices]]
+=== 获取表Devices的权限级别和结构
+....
+GET /schema/Devices
+....
+
+
+==== Description
+获取表Devices的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Devices
+
+
+[[_get_schema_dtu]]
+=== 获取表Dtu的权限级别和结构
+....
+GET /schema/Dtu
+....
+
+
+==== Description
+获取表Dtu的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Dtu
+
+
+[[_get_schema_log]]
+=== 获取表Log的权限级别和结构
+....
+GET /schema/Log
+....
+
+
+==== Description
+获取表Log的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Log
+
+
+[[_get_schema_mainstationindex]]
+=== 获取表MainStationIndex的权限级别和结构
+....
+GET /schema/MainStationIndex
+....
+
+
+==== Description
+获取表MainStationIndex的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* MainStationIndex
+
+
+[[_get_schema_menu]]
+=== 获取表Menu的权限级别和结构
+....
+GET /schema/Menu
+....
+
+
+==== Description
+获取表Menu的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Menu
+
+
+[[_get_schema_notification]]
+=== 获取表Notification的权限级别和结构
+....
+GET /schema/Notification
+....
+
+
+==== Description
+获取表Notification的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Notification
+
+
+[[_get_schema_permission]]
+=== 获取表Permission的权限级别和结构
+....
+GET /schema/Permission
+....
+
+
+==== Description
+获取表Permission的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Permission
+
+
+[[_get_schema_pumpdata]]
+=== 获取表PumpData的权限级别和结构
+....
+GET /schema/PumpData
+....
+
+
+==== Description
+获取表PumpData的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* PumpData
+
+
+[[_get_schema_report]]
+=== 获取表Report的权限级别和结构
+....
+GET /schema/Report
+....
+
+
+==== Description
+获取表Report的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Report
+
+
+[[_get_schema_smartmeter]]
+=== 获取表Smartmeter的权限级别和结构
+....
+GET /schema/Smartmeter
+....
+
+
+==== Description
+获取表Smartmeter的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Smartmeter
+
+
+[[_get_schema_testbed]]
+=== 获取表Testbed的权限级别和结构
+....
+GET /schema/Testbed
+....
+
+
+==== Description
+获取表Testbed的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* Testbed
+
+
+[[_get_schema_role]]
+=== 获取表_Role的权限级别和结构
+....
+GET /schema/_Role
+....
+
+
+==== Description
+获取表_Role的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Role
+
+
+[[_get_schema_session]]
+=== 获取表_Session的权限级别和结构
+....
+GET /schema/_Session
+....
+
+
+==== Description
+获取表_Session的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _Session
+
+
+[[_get_schema_user]]
+=== 获取表_User的权限级别和结构
+....
+GET /schema/_User
+....
+
+
+==== Description
+获取表_User的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* _User
+
+
+[[_get_schema_smartdevhistory]]
+=== 获取表smartdevhistory的权限级别和结构
+....
+GET /schema/smartdevhistory
+....
+
+
+==== Description
+获取表smartdevhistory的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* smartdevhistory
+
+
+[[_get_schema_yhmx]]
+=== 获取表yhmx的权限级别和结构
+....
+GET /schema/yhmx
+....
+
+
+==== Description
+获取表yhmx的权限级别和结构
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|获取成功|No Content
+|**400**|Bad Request|<<_error,error>>
+|**401**|Unauthorized|<<_error,error>>
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|<<_error,error>>
+|===
+
+
+==== Tags
+
+* yhmx
+
+
+[[_post_sendsms]]
+=== 发送短信验证码
+....
+POST /sendsms
+....
+
+
+==== Description
+发送短信,短信验证码发送成功后,则会在缓存中以mobile为键写入, 用户下一步提交时，可以根据此键查询验证通过
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**mobile** +
+__required__|大陆手机号码|string
+|**Query**|**nationcode** +
+__required__|国家/地区|enum (+86/中国, +886/臺灣, +1/American Samoa)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns operation status|No Content
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Consumes
+
+* `\*`
+
+
+==== Tags
+
+* System
+
+
+[[_post_start_connect]]
+=== 单个连接主站
+....
+POST /start_connect
+....
+
+
+==== Description
+集中器连接主站
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__required__|集中器地址|<<_connect,connect>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* Vconcentator
+
+
+[[_post_start_dev]]
+=== 启动集中器
+....
+POST /start_dev
+....
+
+
+==== Description
+启动集中器
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**key** +
+__required__|设备|string|`"vcons"`
+|**Query**|**type** +
+__required__|设备类型|string|`"DLT645"`
+|**Body**|**addrs** +
+__required__|启动集中器|<<_addrs,addrs>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* Vconcentator
+
+
+[[_post_stop_dev]]
+=== 停止集中器
+....
+POST /stop_dev
+....
+
+
+==== Description
+停止集中器
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Query**|**key** +
+__required__|设备|string|`"vcons"`
+|**Query**|**type** +
+__required__|设备类型|string|`"DLT645"`
+|**Body**|**addrs** +
+__required__|停止集中器|<<_addrs,addrs>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns instance data|<<_test,test>>
+|**404**|object not found|<<_error,error>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+==== Tags
+
+* Vconcentator
+
+
+[[_post_users]]
+=== 用户注册
+....
+POST /users
+....
+
+
+==== Description
+用户注册
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**user** +
+__required__|用户信息|<<_login_user,login_User>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Returns operation status|<<_user,_User>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* Users
+
+
+[[_get_users_id]]
+=== 获取用户信息
+....
+GET /users/{id}
+....
+
+
+==== Description
+获取用户信息
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**id** +
+__required__|获取用户信息|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Returns operation status|<<_user,_User>>
+|**400**|Bad Request|No Content
+|**401**|Unauthorized|No Content
+|**406**|Not Acceptable|No Content
+|**500**|Server Internal error|No Content
+|===
+
+
+==== Tags
+
+* Users
+
+
+

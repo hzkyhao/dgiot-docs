@@ -1,0 +1,35 @@
+
+[[_securityscheme]]
+== Security
+
+[[_apikeyheader]]
+=== APIKeyHeader
+[%hardbreaks]
+__Type__ : apiKey
+__Name__ : sessionToken
+__In__ : HEADER
+
+
+[[_apikeyqueryparam]]
+=== APIKeyQueryParam
+[%hardbreaks]
+__Type__ : apiKey
+__Name__ : sessionToken
+__In__ : QUERY
+
+
+[[_basicauth]]
+=== BasicAuth
+[%hardbreaks]
+__Type__ : basic
+
+
+[[_cookieauth]]
+=== CookieAuth
+[%hardbreaks]
+__Type__ : apiKey
+__Name__ : sessionToken
+__In__ : HEADER
+
+
+

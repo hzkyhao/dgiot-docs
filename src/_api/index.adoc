@@ -1,0 +1,24 @@
+:Author Initials: SJR
+:toc: left
+:icons:
+:numbered:
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
+:table-caption!:
+:prewrap!:
+:sectlinks:
+:sectanchors:include::..\..\..\Users\jonhl\Desktop\asciidoc\generated\paths.adoc[]
+:source-highlighter: prettify
+:source-linenums-option!:
+:stylesheet:
+:stylesdir: styles
+:imagesdir: images
+:iconsdir: icons
+
+:website: http://www.iotn2n.com/
+include::generated/overview.adoc[]
+include::generated/functions.adoc[]
+include::generated/paths.adoc[]
+include::generated/security.adoc[]
+include::generated/definitions.adoc[]
