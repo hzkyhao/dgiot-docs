@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数娃IOT</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-submenu/2.0.4/css/bootstrap-submenu.css" rel="stylesheet">
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-submenu/2.0.4/js/bootstrap-submenu.js"></script>
+    <script src="js/nav.js"></script>
+    <style>
+      .footer p{
+    font-size:12px;
+    text-align:center;
+    }
+    .footer ul li a{
+    text-decoration: none;
+    }
+    .footer ul{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    }
+    .footer ul li{
+    list-style:none;
+    padding:0 20px;
+    border-right:1px solid #cccccc;
+    }
+    .footer ul li:last-child{
+    border:none;
+    }
+    .nav > li{
+        display:flex;
+    }
+    .collapse{
+        display:block!important;
+    }
+    @media screen and (max-width: 750px) { /*当屏幕尺寸小于750px时，应用下面的CSS样式*/
+         #framedetail{
+             margin-top:300px;
+         } 
+  }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="nav1" style="text-align:center">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+            数蛙IOT
+        </a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav" id="systemWebMenu">
+        </ul>
+    </div>
+    
+</nav>
+<section style="margin-top:80px;width:100%;height:1000px;">
+        <iframe src="index2.html" frameborder="0" style="width:100%;height:90%;" id="framedetail"></iframe>
+</section>
+<footer class="footer">
+        <p><ul>
+          <li><a href="#">数娃首页</a></li>
+          <li><a href="#">关于我们</a></li>
+          <li><a href="#">联系我们</a></li>
+          <li><a href="#">加入我们</a></li>
+        </ul>
+        </p>
+        <p>Copyright ©  | Powered by <a href="https://github.com/chenhm/vue-github-blog" target="_blank"></a></p>
+      </footer>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        showTreeFirst(tree);//生成一级菜单
+        showTree(tree);//生成其他菜单
+        $('[data-submenu]').submenupicker();//激活多级菜单
+
+    });
+    $(document).on('click', '.endmenu', function () {
+             console.log($(this).attr('data-url'))
+             $('iframe').attr('src',$(this).attr('data-url'))
+            })
+
+</script>
+
+</body>
+</html>
